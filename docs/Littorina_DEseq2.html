@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="MartinGarlovsky" />
+
+<meta name="date" content="2023-02-09" />
+
+<title>Littorina_DEseq2</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">littorina_reprod_rnaseq</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Littorina_DEseq2</h1>
+<h4 class="author">MartinGarlovsky</h4>
+<h4 class="date">2023-02-09</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2023-03-23
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>littorina_reprod_rnaseq/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230323code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230323)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230323code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230323)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskylittorinareprodrnaseqtreeca2b4bca0f73bc120e33ae188e1971bd53e3434ftargetblankca2b4bca">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/tree/ca2b4bca0f73bc120e33ae188e1971bd53e3434f" target="_blank">ca2b4bc</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskylittorinareprodrnaseqtreeca2b4bca0f73bc120e33ae188e1971bd53e3434ftargetblankca2b4bca"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/tree/ca2b4bca0f73bc120e33ae188e1971bd53e3434f" target="_blank">ca2b4bc</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  data/higherLower_genes.xlsx
+    Untracked:  data/mixed_gene_count_matrix.csv
+    Untracked:  output/deseq_hm_md.rds
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/Littorina_DEseq2.Rmd</code>) and
+HTML (<code>docs/Littorina_DEseq2.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/ca2b4bca0f73bc120e33ae188e1971bd53e3434f/analysis/Littorina_DEseq2.Rmd" target="_blank">ca2b4bc</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+<td>
+publish deseq analysis
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This analysis aims to identify differentially expressed genes of
+reproductive tissue between <em>Littorina arcana</em> and <em>L.
+saxatalis</em>. We collected jelly gland (JG) and and brood pouch (BP)
+for each species and foot tissue (FT) as a control to be able to
+identify ‘neutral’ divergence from reproductive tissue-specific
+differential expression. Two sets of tissue were harvested from females.
+First, reproductive tissue only (X replicates for each species). Second,
+3 replicates for reproductive tissue and foot tissue for each
+species.</p>
+<div id="key-to-identify-the-samples" class="section level3">
+<h3>Key to identify the samples:</h3>
+<ul>
+<li>BP_oBP - genes from brood pouch tissue from snails that only brood
+pouch was extracted</li>
+<li>BP_BPFT - genes from brood pouch tissue from snails that brood pouch
+and foot tissue were extracted</li>
+<li>FT_BPFT - genes from foot tissue from snails that brood pouch and
+foot tissue were extracted</li>
+<li>JG_oJG - genes from jelly gland tissue from snails that only jelly
+gland was extracted</li>
+<li>JG_JGFT - genes from jelly gland tissue from snails that jelly gland
+and foot tissue were extracted</li>
+<li>FT_JGFT - genes from foot tissue from snails that jelly gland and
+foot tissue were extracted</li>
+</ul>
+</div>
+</div>
+<div id="load-packages" class="section level2">
+<h2>Load packages</h2>
+<pre class="r"><code>library(tidyverse)
+library(edgeR)
+library(DESeq2)
+library(ComplexHeatmap)
+library(UpSetR)
+library(eulerr)
+
+library(kableExtra)
+library(knitrhooks) # install with devtools::install_github(&quot;nathaneastwood/knitrhooks&quot;)
+
+output_max_height() # a knitrhook option
+
+options(stringsAsFactors = FALSE)
+
+# colourblind friendly palette
+cbPalette &lt;- c(&quot;#999999&quot;, &quot;#E69F00&quot;, &quot;#56B4E9&quot;, &quot;#009E73&quot;, &quot;#F0E442&quot;, &quot;#CC79A7&quot;, &quot;#D55E00&quot;, &quot;#0072B2&quot;, &quot;#CC79A7&quot;)
+
+# sean colours
+sean_col &lt;- c(&#39;arc&#39; = &#39;#CC944B&#39;,
+              &#39;sax&#39; = &#39;#00BCDB&#39;)
+
+# viridis palettes
+v.pal &lt;- viridis::viridis(n = 3, direction = -1)
+m.pal &lt;- viridis::magma(n = 5, direction = -1)
+c.pal &lt;- viridis::inferno(n = 7)</code></pre>
+</div>
+<div id="load-data" class="section level1">
+<h1>Load data</h1>
+<p>Minimal filtering has been performed on the count matrix in HISAT2.
+Here, we first filter the count matrix to remove very lowly expressed
+genes, with less than 20 counts total across any replicate.</p>
+<pre class="r"><code># Importing data
+mixed_count_matrix &lt;- read.csv(&quot;data/mixed_gene_count_matrix.csv&quot;, stringsAsFactors = F, 
+                               header = T, row.names = 1)
+
+#head(mixed_count_matrix)
+#dim(mixed_count_matrix)
+
+# filter genes with less than 20 reads
+mixeddata &lt;- mixed_count_matrix[which(rowSums(mixed_count_matrix[, 1:22]) &gt;= 20), ]
+#dim(mixeddata)
+
+### Design matrix
+# Adding a column &quot;condition&quot; with the sample information
+sampleInfo &lt;- data.frame(samp_info = colnames(mixeddata)) %&gt;% 
+  mutate(condition = case_when(grepl(&#39;^BP&#39;, x = samp_info) ~ &#39;REP_sax&#39;,
+                               grepl(&#39;^JG&#39;, x = samp_info) ~ &#39;REP_arc&#39;,
+                               grepl(&#39;^FT.*JGF$&#39;, x = samp_info) ~ &#39;FT_arc&#39;,
+                               grepl(&#39;^FT.*BPF$&#39;, x = samp_info) ~ &#39;FT_sax&#39;), 
+         species = if_else(grepl(&#39;BP&#39;, samp_info), &#39;sax&#39;, &#39;arc&#39;), 
+         tissue = if_else(grepl(&#39;FT&#39;, samp_info), &#39;foot&#39;, &#39;reprod&#39;),
+         reprod_only = if_else(grepl(&#39;o&#39;, samp_info), &#39;yes&#39;, &#39;no&#39;),
+         Replicate = str_sub(samp_info, 3, 3))</code></pre>
+</div>
+<div id="data-exploration" class="section level1 tabset">
+<h1 class="tabset">Data exploration</h1>
+<p>From the initial 60963 genes, we are left with 40736 after filtering
+(67%). A first look at the data with boxplots we can see jelly gland
+libraries generally have lower expression compared to other tissues.
+From the heatmap we can also see that sample <code>JG3_oJG</code> is an
+obvious outlier with many genes with very low counts. We will exclude
+this sample from further analysis.</p>
+<div id="boxplot" class="section level2">
+<h2>Boxplot</h2>
+<pre class="r"><code>mixeddata %&gt;% 
+  pivot_longer(cols = 1:22) %&gt;% 
+  mutate(condition = case_when(grepl(&#39;^BP&#39;, x = name) ~ &#39;REP_sax&#39;,
+                               grepl(&#39;^JG&#39;, x = name) ~ &#39;REP_arc&#39;,
+                               grepl(&#39;^FT.*JGF$&#39;, x = name) ~ &#39;FT_arc&#39;,
+                               grepl(&#39;^FT.*BPF$&#39;, x = name) ~ &#39;FT_sax&#39;), 
+         species = if_else(grepl(&#39;BP&#39;, name), &#39;sax&#39;, &#39;arc&#39;), 
+         tissue = if_else(grepl(&#39;FT&#39;, name), &#39;foot&#39;, &#39;reprod&#39;),
+         reprod_only = if_else(grepl(&#39;o&#39;, name), &#39;yes&#39;, &#39;no&#39;),
+         Replicate = str_sub(name, 3, 3)) %&gt;% 
+  ggplot(aes(x = name, y = cpm(value, log = TRUE), fill = condition)) +
+  geom_boxplot()</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="heatmap" class="section level2">
+<h2>Heatmap</h2>
+<pre class="r"><code># make DF
+mat_scaled &lt;- pheatmap:::scale_rows(cpm(mixeddata, log = TRUE))
+colnames(mat_scaled) &lt;- colnames(mixeddata)
+
+#mat_scaled &lt;- na.omit(mat_scaled)
+
+top_anno_1 &lt;- HeatmapAnnotation(species = str_sub(colnames(mat_scaled), 1, 2), 
+                                     col = list(species = c(&#39;BP&#39; = v.pal[2], 
+                                                            &#39;JG&#39; = v.pal[3])))
+
+top_anno_1 &lt;- HeatmapAnnotation(species = sampleInfo$species,
+                                tissue = sampleInfo$tissue, 
+                                col = list(species = c(&#39;arc&#39; = m.pal[2],
+                                                       &#39;sax&#39; = m.pal[3]),
+                                           tissue = c(&#39;foot&#39; = v.pal[1], 
+                                                      &#39;reprod&#39; = v.pal[3])))
+
+### this heatmap takes a long time to plot
+# #pdf(&#39;plots/all_hm.pdf&#39;, height = 8, width = 5)
+# Heatmap(mat_scaled, 
+#         col = RColorBrewer::brewer.pal(name = &#39;Spectral&#39;, n = 11),
+#         # heatmap_legend_param = list(title = &quot;log2(CPM)&quot;,
+#         #                             title_position = &quot;leftcenter-rot&quot;),
+#         # right_annotation = labs1,
+#         top_annotation = top_anno_1,
+#         show_row_names = FALSE,
+#         show_row_dend = FALSE,
+#         show_column_names = FALSE,
+#         # column_split = 3,
+#         column_gap = unit(0, &quot;mm&quot;),
+#         row_title = NULL,
+#         column_title = NULL)
+# #dev.off()</code></pre>
+</div>
+</div>
+<div id="differential-expression-analysis-with-deseq2"
+class="section level1">
+<h1>Differential expression analysis with <code>DESeq2</code></h1>
+<p>We perform differential expression analysis to compare the expression
+of genes in each reproductive mode/tissue type. We first filter the data
+to remove genes with low expression. To be included in the analysis, a
+gene must be expressed with moderately high expression (&gt;=5 counts
+per million (cpm)) in at least 3 replicates across any tissue. This
+ensures that a gene is expressed consistently in at least 1 tissue
+(e.g. all 3 <em>L. saxatalis</em> foot libraries), or consistently
+across at least 2 tissues in at least 1 replicate.</p>
+<pre class="r"><code># all data minus JG3_oJG
+all_dat &lt;- mixeddata %&gt;% select(-JG3_oJG) %&gt;% 
+  rownames_to_column(var = &#39;GeneID&#39;)
+
+# filter data
+# filter &gt; 5 cpm in 3 or more replicates
+Keep.dat &lt;- rowSums(cpm(all_dat[, -1]) &gt;= 5) &gt;= 3
+
+all.Filtered &lt;- all_dat[Keep.dat, ]</code></pre>
+<p>After filtering we are left with 13945 genes (34%). Inspecting
+boxplots of cpms before and after normalisation shows replicates behave
+well. A principal component analysis (PCA) plot of the top 500 most
+variable genes shows samples cluster by tissue type (foot
+vs. reproductive tissue) on the first PC (67.2% variance explained) and
+then by reproductive mode (brooders vs. egg layers) on the second PC
+(12.6% var. expl.). The heatmap now also shows reproductive tissues
+cluster by reproductive mode first, whereas foot samples do not. There
+is also a batch effect apparent for the jelly gland samples, as the
+‘jelly gland only’ samples cluster separately from the other jelly gland
+samples. We’ll include a batch term in the model to account for
+this.</p>
+<pre class="r"><code>cts &lt;- as.matrix(all.Filtered[, -1])
+rownames(cts) &lt;- all.Filtered$GeneID
+#summary(cts)
+
+sampl2 &lt;- sampleInfo %&gt;% filter(samp_info != &#39;JG3_oJG&#39;)
+
+dds &lt;- DESeqDataSetFromMatrix(countData = cts,
+                              colData = sampl2,
+                              design = ~ reprod_only + tissue + species + tissue:species)
+
+dds &lt;- DESeq(dds)
+#resultsNames(dds)
+
+#vsd &lt;- vst(dds, blind = FALSE)
+rld &lt;- rlog(dds, blind = FALSE)
+
+norm_deseq &lt;- assay(rld) %&gt;% as.data.frame() %&gt;% 
+  rownames_to_column(var = &#39;GeneID&#39;)
+
+# difference in normalisation
+#pdf(&#39;plots/cpm_vs_normalised.pdf&#39;, height = 4, width = 9)
+par(mfrow = c(1, 2))
+boxplot(cpm(cts, log = TRUE), main = &#39;log2(cpm)&#39;)
+boxplot(norm_deseq[, -1], main = &#39;normalised counts&#39;)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>par(mfrow = c(1, 1))
+#dev.off()
+
+plotMA(dds)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotDispEsts(dds)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ntd &lt;- normTransform(dds)
+library(vsn)
+meanSdPlot(assay(ntd))</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># # size/normalisation factors
+# data.frame(size.factor = sizeFactors(dds)) %&gt;% 
+#   rownames_to_column()
+
+pcaData &lt;- plotPCA(rld, returnData = TRUE)
+
+# PCA var explained
+# #sum(attr(pcaData, &quot;percentVar&quot;))
+
+# PCA (top 500 most variable genes)
+pcaData %&gt;% 
+  mutate(species = if_else(grepl(&#39;JG&#39;, name), &#39;arc&#39;, &#39;sax&#39;),
+         tissue = if_else(grepl(&#39;FT&#39;, name), &#39;foot&#39;, &#39;repr&#39;),
+         batch = if_else(grepl(&#39;o&#39;, name), &#39;rep.only&#39;, &#39;other&#39;)) %&gt;% 
+  ggplot(aes(x = PC1, y = PC2, colour = species, shape = batch)) +
+  geom_point(size = 5, alpha = .75) +
+  labs(x = paste0(&#39;PC1 (&#39;, round(100*attr(pcaData, &quot;percentVar&quot;)[1], 1), &#39;%)&#39;),
+       y = paste0(&#39;PC2 (&#39;, round(100*attr(pcaData, &quot;percentVar&quot;)[2], 1), &#39;%)&#39;))</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># initial heatmap
+Heatmap(pheatmap:::scale_rows(norm_deseq[, -1]), 
+        #col = RColorBrewer::brewer.pal(name = &#39;Spectral&#39;, n = 11),
+        show_row_names = FALSE,
+        show_row_dend = FALSE,
+        column_gap = unit(0, &quot;mm&quot;),
+        row_title = NULL,
+        column_title = NULL)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-6.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="principal-component-analysis" class="section level3">
+<h3>Principal component analysis</h3>
+<pre class="r"><code>most_var &lt;- norm_deseq %&gt;% dplyr::select(-GeneID) %&gt;% 
+  mutate(vars = apply(., 1, var)) %&gt;% 
+  slice_max(vars, n = 500)
+
+pca &lt;- prcomp(t(as.matrix(most_var[, -22])), center = TRUE, scale. = FALSE)
+#summary(pca)
+
+PCA_dat &lt;- as.data.frame(pca$x)[, 1:3] %&gt;%
+  rownames_to_column() %&gt;%
+  mutate(species = if_else(grepl(&#39;JG&#39;, rowname), &#39;arc&#39;, &#39;sax&#39;),
+         tissue = if_else(grepl(&#39;FT&#39;, rowname), &#39;foot&#39;, &#39;repr&#39;))
+
+# Plot for figure
+PCA_dat %&gt;%
+  ggplot(aes(x = PC1, y = PC2, colour = species, shape = tissue)) +
+  geom_point(size = 8, alpha = .7) +
+  labs(x = paste0(&#39;PC1 (&#39;, 100*round(summary(pca)$importance[2, 1], 3), &#39;%)&#39;), 
+       y = paste0(&#39;PC2 (&#39;, 100*round(summary(pca)$importance[2, 2], 3), &#39;%)&#39;)) +
+  scale_colour_manual(values = sean_col, 
+                      labels = c(expression(italic(&#39;L. arc&#39;)),
+                                 expression(italic(&#39;L. sax&#39;)))) +
+  scale_shape_manual(values = c(16, 18), labels = c(&#39;Foot&#39;, &#39;Reprod.&#39;)) +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.text.align = 0,
+        legend.text = element_text(size = 12),
+        legend.background = element_blank(),
+        axis.text = element_text(size = 10),
+        axis.title = element_text(size = 12)) +
+  #ggsave(&#39;plots/PCA_12.pdf&#39;, height = 3.4, width = 4.8, dpi = 600, useDingbats = FALSE) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-7-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>rbind(as.matrix(PCA_dat[, c(2, 3)]),
+      as.matrix(PCA_dat[, c(2, 4)]),
+      as.matrix(PCA_dat[, c(3, 4)])) %&gt;% 
+  bind_cols(species = rep(PCA_dat$species, 3),
+            tissue = rep(PCA_dat$tissue, 3),
+            pc = rep(c(paste0(&#39;PC1 (&#39;,100*round(summary(pca)$importance[2, 1], 3), &#39;%) vs. PC2 (&#39;,
+                              100*round(summary(pca)$importance[2, 2], 3), &#39;%)&#39;), 
+                       paste0(&#39;PC1 (&#39;,100*round(summary(pca)$importance[2, 1], 3), &#39;%) vs. PC3 (&#39;,
+                              100*round(summary(pca)$importance[2, 3], 3), &#39;%)&#39;), 
+                       paste0(&#39;PC2 (&#39;,100*round(summary(pca)$importance[2, 2], 3), &#39;%) vs. PC3 (&#39;,
+                              100*round(summary(pca)$importance[2, 3], 3), &#39;%)&#39;)), 
+                     each = 21)) %&gt;% 
+  ggplot(aes(x = PC1, y = PC2, colour = species, shape = tissue, alpha = .5)) +
+  geom_point(size = 8, alpha = .7) +
+  scale_colour_manual(values = sean_col, 
+                      labels = c(expression(italic(&#39;L. sax&#39;)),
+                                 expression(italic(&#39;L. arc&#39;)))) +
+  scale_shape_manual(values = c(16, 18), labels = c(&#39;Foot&#39;, &#39;Reprod.&#39;)) +
+  facet_wrap(~pc) +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.text.align = 0,
+        legend.text = element_text(size = 12),
+        legend.background = element_blank(),
+        axis.text = element_text(size = 10),
+        axis.title = element_blank(),
+        strip.text = element_text(size = 15)) +
+  #ggsave(&#39;plots/PCA_12.pdf&#39;, height = 3.4, width = 4.5, dpi = 600, useDingbats = FALSE) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-7-2.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+<div id="heatmap-1" class="section level2">
+<h2>heatmap</h2>
+<pre class="r"><code>deseq_scaled &lt;- pheatmap:::scale_rows(norm_deseq[, -1])
+colnames(deseq_scaled) &lt;- colnames(norm_deseq[, -1])
+rownames(deseq_scaled) &lt;- norm_deseq[, 1]
+
+sampl2 &lt;- sampleInfo %&gt;% filter(samp_info != &#39;JG3_oJG&#39;)
+top_anno_all &lt;- HeatmapAnnotation(species = sampl2$species,
+                                  tissue = str_sub(colnames(deseq_scaled), 1, 2), 
+                                  col = list(species = c(&#39;arc&#39; = m.pal[2],
+                                                         &#39;sax&#39; = m.pal[3]),
+                                             tissue = c(&#39;FT&#39; = v.pal[1], 
+                                                        &#39;BP&#39; = v.pal[2], 
+                                                        &#39;JG&#39; = v.pal[3])))
+
+#pdf(&#39;plots/filtered_scaled_hm.pdf&#39;, height = 8, width = 5)
+Heatmap(deseq_scaled, 
+        col = viridis::inferno(25),
+        #col = RColorBrewer::brewer.pal(name = &#39;Spectral&#39;, n = 11),
+        heatmap_legend_param = list(title = &quot;log2(CPM + 1)&quot;,
+                                    title_position = &quot;leftcenter-rot&quot;),
+        # left_annotation = left_anno,
+        # right_annotation = right_anno,
+        top_annotation = top_anno_all,
+        show_row_names = FALSE,
+        show_row_dend = FALSE,
+        # show_column_names = FALSE, 
+        # column_split = 3,
+        column_gap = unit(0, &quot;mm&quot;),
+        row_title = NULL,
+        column_title = NULL)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()</code></pre>
+</div>
+<div id="differential-expression" class="section level2">
+<h2>Differential expression</h2>
+<div id="tissue-differences" class="section level3">
+<h3>Tissue differences</h3>
+<p>We test for differential expression between tissues for each species
+separately to find consistently different/species-specific
+differentially expressed genes in foot compared to reproductive tissue.
+We define differentially expressed genes based on a log2-fold-change
+&gt; |2| and FDR corrected p-value &lt; 0.01.</p>
+<pre class="r"><code># foot vs. reprod arcana
+tiss_arc &lt;- results(dds, tidy = TRUE, name = &#39;tissue_reprod_vs_foot&#39;) %&gt;% as_tibble() %&gt;%
+  mutate(threshold = if_else(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 2, &quot;SD&quot;, &quot;NS&quot;))
+
+# foot vs. reprod sax
+tiss_sax &lt;- results(dds, tidy = TRUE, list(c(&quot;tissue_reprod_vs_foot&quot;, 
+                                             &quot;tissuereprod.speciessax&quot;))) %&gt;% as_tibble() %&gt;%
+  mutate(threshold = if_else(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 2, &quot;SD&quot;, &quot;NS&quot;))
+
+#table(tiss_arc$threshold)
+#table(tiss_sax$threshold)
+
+tissue_dat &lt;- inner_join(tiss_arc,
+                         tiss_sax, by = &#39;row&#39;) %&gt;%
+  mutate(sig_a = if_else(abs(log2FoldChange.x) &gt; 2 &amp; padj.x &lt; 0.01, &#39;sig&#39;, &#39;not&#39;),
+         sig_s = if_else(abs(log2FoldChange.y) &gt; 2 &amp; padj.y &lt; 0.01, &#39;sig&#39;, &#39;not&#39;),
+         concordant = if_else(sign(log2FoldChange.x) == sign(log2FoldChange.y), &#39;same&#39;, &#39;diff&#39;)) %&gt;%
+  mutate(category = case_when(sig_a == &#39;sig&#39; &amp; sig_s == &#39;sig&#39; &amp; concordant == &#39;same&#39; ~ &#39;Concordant&#39;,
+                              sig_a == &#39;sig&#39; &amp; sig_s == &#39;sig&#39; &amp; concordant == &#39;diff&#39; ~ &#39;Opposing&#39;,
+                              sig_a == &#39;sig&#39; &amp; sig_s == &#39;not&#39; ~ &#39;L. arc&#39;,
+                              sig_a == &#39;not&#39; &amp; sig_s == &#39;sig&#39; ~ &#39;L. sax&#39;,
+                              TRUE ~ &#39;No bias&#39;))
+
+tissue_dat %&gt;% 
+  ggplot(aes(x = log2FoldChange.x, y = log2FoldChange.y)) + 
+  geom_hline(yintercept = c(-2, 2), lty = 2) +
+  geom_vline(xintercept = c(-2, 2), lty = 2) +
+  geom_abline(slope = 1, lty = 2) +
+  geom_point(aes(colour = category), alpha = .75) +
+  geom_smooth(method = &#39;lm&#39;) +
+  scale_colour_viridis_d(labels = c(&#39;Concordant&#39;, expression(italic(&#39;L. sax&#39;)),
+                                    expression(italic(&#39;L. arc&#39;)), &#39;No bias&#39;, &#39;Opposing&#39;)) +
+  labs(x = expression(paste(&#39;log2FC in &#39;, italic(&#39;L. arc&#39;))),
+       y = expression(paste(&#39;log2FC in &#39;, italic(&#39;L. sax&#39;)))) +
+  theme_bw() +
+  theme(legend.position = &#39;bottom&#39;,
+        legend.title = element_blank(),
+        strip.text = element_text(face = &quot;bold&quot;, size = 15),
+        strip.background = element_rect(fill = &quot;grey&quot;),
+        plot.background = element_rect(colour = NA)) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># upset(fromList(list(
+#   arc = tiss_arc$row[tiss_arc$threshold == &#39;SD&#39;],
+#   sax = tiss_sax$row[tiss_sax$threshold == &#39;SD&#39;])))</code></pre>
+</div>
+<div id="species-effect-for-foot" class="section level3">
+<h3>Species effect for foot</h3>
+<p>Next we test for genes differentially expressed between reproductive
+modes for the foot tissue.</p>
+<pre class="r"><code># main effect - species effect for foot
+foot_diff &lt;- results(dds, tidy = TRUE, name = &#39;species_sax_vs_arc&#39;) %&gt;% 
+  mutate(threshold = if_else(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 2, &quot;SD&quot;, &quot;NS&quot;))
+
+#table(foot_diff$threshold)
+
+# volcano plot
+foot_diff %&gt;% 
+  ggplot(aes(x = log2FoldChange, y = -log10(pvalue), colour = threshold)) +
+  geom_point() +
+  theme_bw() +
+  theme(legend.position = &#39;&#39;) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="species-effect-for-reproductive-tissue" class="section level3">
+<h3>Species effect for reproductive tissue</h3>
+<pre class="r"><code># species effect for reprod tissue - main effect plus interaction - extra species effect in reprod compared to foot
+repr_diff &lt;- results(dds, tidy = TRUE, list(c(&#39;species_sax_vs_arc&#39;, 
+                                              &#39;tissuereprod.speciessax&#39;))) %&gt;% 
+  mutate(threshold = if_else(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 2, &quot;SD&quot;, &quot;NS&quot;))
+
+# interaction effect - is species effect different across tissues?
+intr_diff &lt;- results(dds, tidy = TRUE, name = &#39;tissuereprod.speciessax&#39;) %&gt;% 
+  mutate(threshold = if_else(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 2, &quot;SD&quot;, &quot;NS&quot;))
+
+# plotCounts(dds, gene = &#39;Lsa_00009005&#39;, returnData = TRUE) %&gt;% 
+#   ggplot(aes(x = condition, y = log2(count))) + 
+#   geom_jitter(size = 3, width = .25)
+# 
+# plotCounts(dds, gene = &#39;Lsa_00024235&#39;, returnData = TRUE) %&gt;% 
+#   ggplot(aes(x = condition, y = log2(count))) + 
+#   geom_jitter(size = 3, width = .25)
+
+#table(repr_diff$threshold)
+#table(intr_diff$threshold)
+
+# combined interaction + reprod difference excluding foot differences
+cd &lt;- setdiff(unique(c(intr_diff$row[intr_diff$threshold == &#39;SD&#39;], 
+                       repr_diff$row[repr_diff$threshold == &#39;SD&#39;])), 
+              foot_diff$row[foot_diff$threshold == &#39;SD&#39;])
+
+#length(intr_diff$row[intr_diff$threshold == &#39;SD&#39;])
+#intersect(repr_diff$row[repr_diff$threshold == &#39;SD&#39;], foot_diff$row[foot_diff$threshold == &#39;SD&#39;]) %&gt;% length
+#setdiff(repr_diff$row[repr_diff$threshold == &#39;SD&#39;], foot_diff$row[foot_diff$threshold == &#39;SD&#39;]) %&gt;% length
+
+# # overlap between &#39;ejaculate candidates&#39; identified using each species DB
+# upset(fromList(list(
+#   foot = foot_diff$row[foot_diff$threshold == &#39;SD&#39;],
+#   repr = repr_diff$row[repr_diff$threshold == &#39;SD&#39;],
+#   intr = intr_diff$row[intr_diff$threshold == &#39;SD&#39;])))
+
+# exclude foot differences
+rep_only &lt;- setdiff(repr_diff$row[repr_diff$threshold == &#39;SD&#39;], foot_diff$row[foot_diff$threshold == &#39;SD&#39;])
+
+# inspect some genes
+norm_deseq %&gt;% 
+  filter(GeneID %in% rep_only) %&gt;% 
+  filter(GeneID %in% repr_diff$row[repr_diff$padj &lt; 0.01 &amp; repr_diff$log2FoldChange &gt; 2]) %&gt;%
+  # get a random sample of genes to look at
+  sample_n(30) %&gt;% 
+  pivot_longer(cols = 2:22) %&gt;% 
+  mutate(species = if_else(grepl(&#39;JG&#39;, name), &#39;arc&#39;, &#39;sax&#39;),
+         tissue = if_else(grepl(&#39;FT&#39;, name), &#39;foot&#39;, &#39;repr&#39;)) %&gt;% 
+  ggplot(aes(x = tissue, y = value, colour = species)) +
+  geom_point(position = position_dodge(width = .5)) +
+  scale_color_brewer(palette = &#39;Set1&#39;) +
+  labs(x = &#39;&#39;, y = &#39;log2(CPM + 1)&#39;) +
+  facet_wrap(~GeneID, scales = &#39;free_y&#39;) +
+  theme_bw() +
+  stat_summary(fun = median, position = position_dodge(width = .5),
+               geom = &quot;point&quot;, shape = 5, size = 3) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="volcano-plot" class="section level2">
+<h2>volcano plot</h2>
+<pre class="r"><code>lab_text &lt;- data.frame(#P.Value = 1, 
+                       log2FoldChange = c(-10, 10),
+                       lab = c(&quot;L. arc&quot;, &#39;L. sax&#39;),
+                       SigDiff = NA)
+
+repr_diff %&gt;% 
+  ggplot(aes(x = log2FoldChange, y = -log10(pvalue), colour = threshold)) +
+  geom_point() +
+  theme_bw() +
+  theme(legend.position = &#39;&#39;) + 
+  geom_text(data = lab_text, colour = &#39;black&#39;, hjust = &#39;middle&#39;,
+            aes(y = 0.5, label = paste0(lab)), size = 10, fontface = &quot;italic&quot;) +
+  geom_segment(aes(x = 15, y = 0, xend = 30, yend = 0), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  geom_segment(aes(x = -15, y = 0, xend = -30, yend = 0), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># merge data
+comb_all &lt;- inner_join(repr_diff,
+                       foot_diff,
+                       by = &#39;row&#39;, suffix = c(&#39;.repr&#39;, &#39;.foot&#39;)) %&gt;% 
+  mutate(differ = case_when(threshold.repr == &#39;SD&#39; &amp; threshold.foot == &#39;SD&#39; ~ &#39;both&#39;,
+                            threshold.repr == &#39;SD&#39; &amp; threshold.foot != &#39;SD&#39; ~ &#39;repr&#39;,
+                            threshold.repr != &#39;SD&#39; &amp; threshold.foot == &#39;SD&#39; ~ &#39;foot&#39;,
+                            TRUE ~ &#39;none&#39;),
+         tissue_diff = case_when(row %in% intersect(tiss_arc$row[tiss_arc$threshold == &#39;SD&#39;],
+                                                    tiss_sax$row[tiss_sax$threshold == &#39;SD&#39;]) ~ &#39;both&#39;,
+                                 row %in% tiss_arc$row[tiss_arc$threshold == &#39;SD&#39;] ~ &#39;arc&#39;,
+                                 row %in% tiss_sax$row[tiss_sax$threshold == &#39;SD&#39;] ~ &#39;sax&#39;),
+         # #sig_diff = if_else(row %in% cd, &#39;sd&#39;, &#39;ns&#39;),
+         # int_diff = if_else(row %in% intr_diff$row[intr_diff$threshold == &#39;SD&#39;], &#39;sd&#39;, &#39;ns&#39;),
+         # rep_diff = if_else(row %in% repr_diff$row[repr_diff$threshold == &#39;SD&#39;], &#39;sd&#39;, &#39;ns&#39;),
+         # i2 = case_when(row %in% foot_diff$row[foot_diff$threshold == &#39;SD&#39;] ~ &#39;foot&#39;,
+         #                row %in% repr_diff$row[repr_diff$threshold == &#39;SD&#39;] ~ &#39;repr&#39;,
+         #                row %in% intr_diff$row[intr_diff$threshold == &#39;SD&#39;] ~ &#39;intr&#39;,
+         #                TRUE ~ &#39;ns&#39;)
+         )
+
+# number of differentially expressed genes in reproductive system found higher in each species
+comb_all %&gt;% filter(differ == &#39;repr&#39;) %&gt;% 
+  mutate(up_in = if_else(log2FoldChange.repr &gt; 2, &quot;sax&quot;, &quot;arc&quot;)) %&gt;% 
+  dplyr::count(up_in) %&gt;% 
+  mutate(prop.n = n/sum(n))</code></pre>
+<pre>  up_in   n    prop.n
+1   arc 439 0.3384734
+2   sax 858 0.6615266
+</pre>
+<pre class="r"><code># genes of interest
+sean_ids &lt;- readxl::read_xlsx(&quot;data/higherLower_genes.xlsx&quot;, col_names = FALSE) %&gt;% 
+  dplyr::rename(gene = 1)
+
+# comb_all %&gt;% filter(differ == &#39;repr&#39;) %&gt;% 
+#   mutate(up_in = if_else(log2FoldChange.repr &gt; 2, &quot;sax&quot;, &quot;arc&quot;)) %&gt;% 
+#   filter(row %in% sean_ids$gene) %&gt;% 
+#   dplyr::select(gene = row, 2:7, up_in) %&gt;% write_csv(&quot;output/sean_IDs.csv&quot;)
+
+norm_deseq %&gt;% 
+  filter(GeneID %in% rep_only) %&gt;% 
+  filter(GeneID %in% sean_ids$gene) %&gt;% 
+  pivot_longer(cols = 2:22) %&gt;% 
+  mutate(species = if_else(grepl(&#39;JG&#39;, name), &#39;arc&#39;, &#39;sax&#39;),
+         tissue = if_else(grepl(&#39;FT&#39;, name), &#39;foot&#39;, &#39;repr&#39;)) %&gt;% 
+  ggplot(aes(x = tissue, y = value, colour = species)) +
+  geom_point(position = position_dodge(width = .5)) +
+  scale_color_brewer(palette = &#39;Set1&#39;) +
+  labs(x = &#39;&#39;, y = &#39;log2(CPM + 1)&#39;) +
+  facet_wrap(~GeneID, scales = &#39;free_y&#39;, nrow = 2) +
+  theme_bw() +
+  stat_summary(fun = median, position = position_dodge(width = .5),
+               geom = &quot;point&quot;, shape = 5, size = 3) +
+  #ggsave(&#39;plots/sean_plots.pdf&#39;, height = 6, width = 14) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># table(comb_all$differ)
+# table(comb_all$int_diff)
+# table(comb_all$i2)
+
+lab_text.cor &lt;- data.frame(log2FoldChange.repr = c(-25, 25),
+                           log2FoldChange.foot = c(-25, 25),
+                           lab = c(&quot;L. arc&quot;, &#39;L. sax&#39;),
+                           SigDiff = NA)
+
+# correlation
+comb_all %&gt;% filter(differ == &#39;none&#39;) %&gt;% 
+  ggplot(aes(x = log2FoldChange.repr, y = log2FoldChange.foot)) + 
+  geom_hline(yintercept = c(-2, 2), lty = 2) +
+  geom_vline(xintercept = c(-2, 2), lty = 2) +
+  geom_point(size = 0.5, alpha = .25) +
+  geom_point(data = comb_all %&gt;% filter(differ != &#39;none&#39;),
+             aes(colour = differ),
+             alpha = .5) +
+  scale_colour_manual(values = MetBrewer::met.brewer(&#39;Hiroshige&#39;)[c(1, 4, 10)]) +
+  theme_bw() +
+  #theme(legend.position = &#39;&#39;) +
+  geom_text(data = lab_text.cor, colour = &#39;black&#39;, hjust = &#39;middle&#39;,
+            aes(y = -28, label = paste0(lab)), size = 5, fontface = &quot;italic&quot;) +
+  # x axis arrows
+  geom_segment(aes(x = 15, y = -30, xend = 30, yend = -30), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  geom_segment(aes(x = -15, y = -30, xend = -30, yend = -30), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  # y axis arrows
+  geom_segment(aes(x = -30, y = 15, xend = -30, yend = 30), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  geom_segment(aes(x = -30, y = -15, xend = -30, yend = -30), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  geom_text(data = lab_text.cor, colour = &#39;black&#39;, hjust = &#39;middle&#39;,
+            aes(x = -28, label = paste0(lab)), size = 5, angle = 90, fontface = &quot;italic&quot;) +
+  #ggsave(&#39;plots/DA_cor.pdf&#39;, height = 3.4, width = 4.8, dpi = 600, useDingbats = FALSE) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># # counts
+# comb_all %&gt;% 
+#   group_by(differ) %&gt;% dplyr::count() %&gt;% filter(differ != &#39;none&#39;)
+
+comb_all %&gt;% 
+  mutate(up_in = if_else(log2FoldChange.repr &gt; 2, &#39;sax&#39;, &#39;arc&#39;)) %&gt;% 
+  group_by(differ, up_in) %&gt;% dplyr::count() %&gt;% filter(differ != &#39;none&#39;) %&gt;% 
+  ggplot(aes(x = up_in, y = n, fill = differ)) +
+  geom_col() +
+  scale_fill_manual(values = MetBrewer::met.brewer(&#39;Hiroshige&#39;)[c(1, 4, 10)]) +
+  theme_bw() +
+  theme(legend.position = &#39;&#39;) +
+  #ggsave(&#39;plots/DA_numbers.pdf&#39;, height = 4, width = 4, dpi = 600, useDingbats = FALSE) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-4.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="heatmap---all-genes" class="section level1">
+<h1>Heatmap - all genes</h1>
+<p>This heatmap shows the expression of all 13945 used in the analysis,
+highlighting differentially expressed genes between reproductive tissue
+and foot tissue on the left annotation and differentially expressed
+genes between reproductive modes on the right hand side.</p>
+<pre class="r"><code>anno_dat &lt;- deseq_scaled %&gt;% as.data.frame() %&gt;% 
+  rownames_to_column() %&gt;% 
+  left_join(comb_all, by = c(&#39;rowname&#39; = &#39;row&#39;))
+
+top_anno_all &lt;- HeatmapAnnotation(species = sampl2$species,
+                                  tissue = str_sub(colnames(norm_deseq)[-1], 1, 2), 
+                                  col = list(species = c(&#39;arc&#39; = &#39;#CC944B&#39;,
+                                                         &#39;sax&#39; = &#39;#00BCDB&#39;),
+                                             tissue = c(&#39;FT&#39; = v.pal[1], 
+                                                        &#39;BP&#39; = v.pal[2], 
+                                                        &#39;JG&#39; = v.pal[3])))
+
+left_anno &lt;- rowAnnotation(tiss = anno_dat$tissue_diff,
+                           col = list(tiss = c(arc = &#39;blue&#39;,
+                                               sax = &#39;red&#39;,
+                                               both = &#39;purple&#39;)),
+                           na_col = NA,
+                           title = NULL,
+                           show_annotation_name = FALSE)
+
+right_anno &lt;- rowAnnotation(DE = anno_dat$differ,
+                            col = list(DE = c(none = NA,
+                                              repr = MetBrewer::met.brewer(&#39;Hiroshige&#39;)[10],
+                                              foot = MetBrewer::met.brewer(&#39;Hiroshige&#39;)[4],
+                                              both = MetBrewer::met.brewer(&#39;Hiroshige&#39;)[1])),
+                            title = NULL,
+                            show_annotation_name = FALSE)
+
+#pdf(&#39;plots/DE_anno_hm.pdf&#39;, height = 8, width = 5)
+Heatmap(deseq_scaled,
+        col = viridis::inferno(25),
+        #col = RColorBrewer::brewer.pal(name = &#39;Spectral&#39;, n = 11),
+        heatmap_legend_param = list(title = &quot;log2(CPM + 1)&quot;,
+                                    title_position = &quot;leftcenter-rot&quot;),
+        left_annotation = left_anno,
+        right_annotation = right_anno,
+        top_annotation = top_anno_all,
+        show_row_names = FALSE,
+        show_row_dend = FALSE,
+        show_column_names = FALSE,
+        # column_split = 3,
+        #row_split = 2,
+        column_gap = unit(0, &quot;mm&quot;),
+        row_title = NULL,
+        column_title = NULL)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()</code></pre>
+</div>
+<div id="heatmap---differentially-expressed-genes-only"
+class="section level1">
+<h1>Heatmap - differentially expressed genes only</h1>
+<pre class="r"><code>#anno_dat %&gt;% filter(differ == &#39;repr&#39;) %&gt;% dplyr::select(starts_with(&#39;BP&#39;), starts_with(&#39;JG&#39;))
+
+top_anno_de &lt;- HeatmapAnnotation(species = sampl2$species[sampl2$tissue == &#39;reprod&#39;],
+                                 #tissue = str_sub(colnames(norm_deseq)[-1], 1, 2), 
+                                 col = list(species = c(&#39;arc&#39; = &#39;#CC944B&#39;,
+                                                        &#39;sax&#39; = &#39;#00BCDB&#39;),
+                                            tissue = c(&#39;FT&#39; = v.pal[1], 
+                                                       &#39;BP&#39; = v.pal[2], 
+                                                       &#39;JG&#39; = v.pal[3])))
+
+#pdf(&#39;plots/DE_repr_hm.pdf&#39;, height = 8, width = 5)
+Heatmap(anno_dat %&gt;% filter(differ == &#39;repr&#39;) %&gt;% dplyr::select(starts_with(&#39;BP&#39;), starts_with(&#39;JG&#39;)), 
+        col = viridis::inferno(25),
+        #col = RColorBrewer::brewer.pal(name = &#39;Spectral&#39;, n = 11),
+        heatmap_legend_param = list(title = &quot;log2(CPM + 1)&quot;,
+                                    title_position = &quot;leftcenter-rot&quot;),
+        #left_annotation = left_anno,
+        #right_annotation = right_anno,
+        top_annotation = top_anno_de,
+        show_row_names = FALSE,
+        show_row_dend = FALSE,
+        show_column_names = FALSE,
+        # column_split = 3,
+        row_split = 2,
+        column_gap = unit(0, &quot;mm&quot;),
+        row_title = NULL,
+        column_title = NULL)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()
+
+#hist(as.matrix(anno_dat %&gt;% filter(differ == &#39;repr&#39;) %&gt;% dplyr::select(starts_with(&#39;BP&#39;), starts_with(&#39;JG&#39;))))</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre>R version 4.2.2 (2022-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Ventura 13.2
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] vsn_3.66.0                  knitrhooks_0.0.4           
+ [3] knitr_1.41                  kableExtra_1.3.4           
+ [5] eulerr_7.0.0                UpSetR_1.4.0               
+ [7] ComplexHeatmap_2.14.0       DESeq2_1.38.3              
+ [9] SummarizedExperiment_1.28.0 Biobase_2.58.0             
+[11] MatrixGenerics_1.10.0       matrixStats_0.63.0         
+[13] GenomicRanges_1.50.2        GenomeInfoDb_1.34.6        
+[15] IRanges_2.32.0              S4Vectors_0.36.1           
+[17] BiocGenerics_0.44.0         edgeR_3.40.2               
+[19] limma_3.54.0                forcats_0.5.2              
+[21] stringr_1.5.0               dplyr_1.0.10               
+[23] purrr_1.0.1                 readr_2.1.3                
+[25] tidyr_1.2.1                 tibble_3.1.8               
+[27] ggplot2_3.4.0               tidyverse_1.3.2            
+[29] workflowr_1.7.0            
+
+loaded via a namespace (and not attached):
+  [1] readxl_1.4.1           backports_1.4.1        circlize_0.4.15       
+  [4] systemfonts_1.0.4      plyr_1.8.8             splines_4.2.2         
+  [7] BiocParallel_1.32.5    digest_0.6.31          foreach_1.5.2         
+ [10] htmltools_0.5.4        magick_2.7.3           viridis_0.6.2         
+ [13] fansi_1.0.3            magrittr_2.0.3         memoise_2.0.1         
+ [16] googlesheets4_1.0.1    cluster_2.1.4          doParallel_1.0.17     
+ [19] tzdb_0.3.0             Biostrings_2.66.0      annotate_1.76.0       
+ [22] modelr_0.1.10          svglite_2.1.1          timechange_0.2.0      
+ [25] colorspace_2.0-3       blob_1.2.3             rvest_1.0.3           
+ [28] haven_2.5.1            xfun_0.36              hexbin_1.28.2         
+ [31] callr_3.7.3            crayon_1.5.2           RCurl_1.98-1.9        
+ [34] jsonlite_1.8.4         iterators_1.0.14       glue_1.6.2            
+ [37] gtable_0.3.1           gargle_1.2.1           zlibbioc_1.44.0       
+ [40] XVector_0.38.0         webshot_0.5.4          GetoptLong_1.0.5      
+ [43] DelayedArray_0.24.0    shape_1.4.6            scales_1.2.1          
+ [46] pheatmap_1.0.12        DBI_1.1.3              Rcpp_1.0.9            
+ [49] viridisLite_0.4.1      xtable_1.8-4           clue_0.3-63           
+ [52] bit_4.0.5              preprocessCore_1.60.2  MetBrewer_0.2.0       
+ [55] httr_1.4.4             RColorBrewer_1.1-3     ellipsis_0.3.2        
+ [58] pkgconfig_2.0.3        XML_3.99-0.13          farver_2.1.1          
+ [61] sass_0.4.4             dbplyr_2.3.0           locfit_1.5-9.7        
+ [64] utf8_1.2.2             tidyselect_1.2.0       labeling_0.4.2        
+ [67] rlang_1.0.6            later_1.3.0            AnnotationDbi_1.60.0  
+ [70] munsell_0.5.0          cellranger_1.1.0       tools_4.2.2           
+ [73] cachem_1.0.6           cli_3.6.0              generics_0.1.3        
+ [76] RSQLite_2.2.20         broom_1.0.2            evaluate_0.20         
+ [79] fastmap_1.1.0          yaml_2.3.6             processx_3.8.0        
+ [82] bit64_4.0.5            fs_1.5.2               KEGGREST_1.38.0       
+ [85] nlme_3.1-161           whisker_0.4.1          xml2_1.3.3            
+ [88] compiler_4.2.2         rstudioapi_0.14        png_0.1-8             
+ [91] affyio_1.68.0          reprex_2.0.2           geneplotter_1.76.0    
+ [94] bslib_0.4.2            stringi_1.7.12         highr_0.10            
+ [97] ps_1.7.2.9000          lattice_0.20-45        Matrix_1.5-3          
+[100] vctrs_0.5.1            pillar_1.8.1           lifecycle_1.0.3       
+[103] BiocManager_1.30.19    jquerylib_0.1.4        GlobalOptions_0.1.2   
+[106] bitops_1.0-7           httpuv_1.6.8           affy_1.76.0           
+[109] R6_2.5.1               promises_1.2.0.1       gridExtra_2.3         
+[112] codetools_0.2-18       assertthat_0.2.1       rprojroot_2.0.3       
+[115] rjson_0.2.21           withr_2.5.0            GenomeInfoDbData_1.2.9
+[118] mgcv_1.8-41            parallel_4.2.2         hms_1.1.2             
+[121] rmarkdown_2.20         googledrive_2.0.0      git2r_0.30.1          
+[124] getPass_0.2-2          lubridate_1.9.0       
+</pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
