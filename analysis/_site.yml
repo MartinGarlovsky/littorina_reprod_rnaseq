@@ -1,7 +1,7 @@
-name: "littorina_reprod_rnaseq"
+name: littorina_reprod_rnaseq
 output_dir: ../docs
 navbar:
-  title: "littorina_reprod_rnaseq"
+  title: littorina_reprod_rnaseq
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fab fa-github
+    text: Source code
+    href: https://github.com/MartinGarlovsky/littorina_reprod_rnaseq
 output:
   workflowr::wflow_html:
     toc: yes
