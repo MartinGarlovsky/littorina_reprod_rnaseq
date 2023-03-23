@@ -32,6 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -263,7 +265,13 @@ $(document).ready(function () {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -349,13 +357,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstronge001d60">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskylittorinareprodrnaseqtree4bfd108a585b3f9173b0fb76890e46a513e44ccbtargetblank4bfd108a">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> e001d60
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/tree/4bfd108a585b3f9173b0fb76890e46a513e44ccb" target="_blank">4bfd108</a>
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstronge001d60"
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskylittorinareprodrnaseqtree4bfd108a585b3f9173b0fb76890e46a513e44ccbtargetblank4bfd108a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -364,7 +374,8 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version e001d60.
+The results in this page were generated with repository version
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/tree/4bfd108a585b3f9173b0fb76890e46a513e44ccb" target="_blank">4bfd108</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -380,6 +391,11 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  data/higherLower_genes.xlsx
+    Untracked:  data/mixed_gene_count_matrix.csv
+    Untracked:  output/deseq_hm_md.rds
 
 </code></pre>
 <p>
@@ -429,7 +445,41 @@ Message
 Rmd
 </td>
 <td>
-e001d60
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/4bfd108a585b3f9173b0fb76890e46a513e44ccb/analysis/index.Rmd" target="_blank">4bfd108</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+<td>
+publish index
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MartinGarlovsky/littorina_reprod_rnaseq/6cc5f8edeaf5d1b069a42d109362f7cd257337bf/docs/index.html" target="_blank">6cc5f8e</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/e001d60cf08fadfb1fe27d61022c4f8974cdce12/analysis/index.Rmd" target="_blank">e001d60</a>
 </td>
 <td>
 MartinGarlovsky
@@ -448,7 +498,13 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>Welcome to my research website.</p>
+<p>All other data and analysis scripts are available on Github <a
+href="https://github.com/seanstankowski/Littorina_reproductive_mode">here</a></p>
+<div id="differential-expression-analysis-using-deseq2"
+class="section level3">
+<h3><a href="Littorina_DEseq2.html">1. Differential expression analysis
+using DESeq2</a></h3>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
