@@ -8,4 +8,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+All other data and analysis scripts are available on Github [here](https://github.com/seanstankowski/Littorina_reproductive_mode)
+
+### [1. Differential expression analysis using DESeq2](Littorina_DEseq2.html)
