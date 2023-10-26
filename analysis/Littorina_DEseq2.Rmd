@@ -60,7 +60,7 @@ Minimal filtering has been performed on the count matrix in HISAT2. Here, we fir
 
 ```{r}
 # Importing data
-mixed_count_matrix <- read.csv("data/mixed_gene_count_matrix.csv", stringsAsFactors = F, 
+mixed_count_matrix <- read.csv("data/mixed_gene_count_matrix.csv", stringsAsFactors = FALSE, 
                                header = T, row.names = 1)
 
 #head(mixed_count_matrix)
@@ -619,12 +619,14 @@ right_anno <- rowAnnotation(DE = anno_dat$differ,
                             title = NULL,
                             show_annotation_name = FALSE)
 
-#pdf('plots/DE_anno_hm.pdf', height = 8, width = 5)
+#pdf('plots/DE_anno_hm.pdf', height = 8, width = 7)
 Heatmap(deseq_scaled,
         col = viridis::inferno(25),
         #col = RColorBrewer::brewer.pal(name = 'Spectral', n = 11),
+        # heatmap_legend_param = list(title = "log2(CPM + 1)",
+        #                             title_position = "leftcenter-rot"),
         heatmap_legend_param = list(title = "log2(CPM + 1)",
-                                    title_position = "leftcenter-rot"),
+                                    direction = "horizontal"),
         left_annotation = left_anno,
         right_annotation = right_anno,
         top_annotation = top_anno_all,
@@ -656,8 +658,10 @@ top_anno_de <- HeatmapAnnotation(species = sampl2$species[sampl2$tissue == 'repr
 Heatmap(anno_dat %>% filter(differ == 'repr') %>% dplyr::select(starts_with('BP'), starts_with('JG')), 
         col = viridis::inferno(25),
         #col = RColorBrewer::brewer.pal(name = 'Spectral', n = 11),
+        # heatmap_legend_param = list(title = "log2(CPM + 1)",
+        #                             title_position = "leftcenter-rot"),
         heatmap_legend_param = list(title = "log2(CPM + 1)",
-                                    title_position = "leftcenter-rot"),
+                                    direction = "horizontal"),
         #left_annotation = left_anno,
         #right_annotation = right_anno,
         top_annotation = top_anno_de,
@@ -672,5 +676,770 @@ Heatmap(anno_dat %>% filter(differ == 'repr') %>% dplyr::select(starts_with('BP'
 #dev.off()
 
 #hist(as.matrix(anno_dat %>% filter(differ == 'repr') %>% dplyr::select(starts_with('BP'), starts_with('JG'))))
+
+```
+
+
+# >>> response to reviewer
+
+After filtering we are left with `r dim(all.Filtered)[1]` genes (`r round(dim(all.Filtered)[1]/dim(all_dat)[1] * 100)`%). Inspecting boxplots of cpms before and after normalisation shows replicates behave well. A principal component analysis (PCA) plot of the top 500 most variable genes shows samples cluster by tissue type (foot vs. reproductive tissue) on the first PC (67.2% variance explained) and then by reproductive mode (brooders vs. egg layers) on the second PC (12.6% var. expl.). The heatmap now also shows reproductive tissues cluster by reproductive mode first, whereas foot samples do not. There is also a batch effect apparent for the jelly gland samples, as the 'jelly gland only' samples cluster separately from the other jelly gland samples. We'll include a batch term in the model to account for this. 
+
+## Removing the extra reproductive tissue samples
+```{r}
+# all data minus JG3_oJG
+reduced_dat <- mixeddata %>% select(!contains("o")) %>% 
+  rownames_to_column(var = 'GeneID')
+
+# filter data
+# filter > 5 cpm in 3 or more replicates
+Keep.red <- rowSums(cpm(reduced_dat[, -1]) >= 5) >= 3
+
+red.Filtered <- reduced_dat[Keep.dat, ]
+
+
+cts.red <- as.matrix(red.Filtered[, -1])
+rownames(cts.red) <- red.Filtered$GeneID
+#summary(cts)
+
+sampl.red <- sampleInfo %>% filter(!str_detect(samp_info, "o"))
+
+dds.red <- DESeqDataSetFromMatrix(countData = cts.red,
+                                  colData = sampl.red,
+                                  design = ~ tissue + species + tissue:species)
+
+dds.red <- DESeq(dds.red)
+#resultsNames(dds.red)
+
+#vsd <- vst(dds.red, blind = FALSE)
+rld.red <- rlog(dds.red, blind = FALSE)
+
+norm_deseq.red <- assay(rld.red) %>% as.data.frame() %>% 
+  rownames_to_column(var = 'GeneID')
+
+# difference in normalisation
+#pdf('plots/cpm_vs_normalised.pdf', height = 4, width = 9)
+par(mfrow = c(1, 2))
+boxplot(cpm(cts.red, log = TRUE), main = 'log2(cpm)')
+boxplot(norm_deseq.red[, -1], main = 'normalised counts')
+par(mfrow = c(1, 1))
+#dev.off()
+
+plotMA(dds.red)
+plotDispEsts(dds.red)
+ntd.red <- normTransform(dds.red)
+meanSdPlot(assay(ntd.red))
+
+# # size/normalisation factors
+# data.frame(size.factor = sizeFactors(dds)) %>% 
+#   rownames_to_column()
+
+pcaData.red <- plotPCA(rld.red, returnData = TRUE)
+
+# PCA var explained
+# #sum(attr(pcaData, "percentVar"))
+
+# PCA (top 500 most variable genes)
+pcaData.red %>% 
+  mutate(species = if_else(grepl('JG', name), 'arc', 'sax'),
+         tissue = if_else(grepl('FT', name), 'foot', 'repr')) %>% 
+  ggplot(aes(x = PC1, y = PC2, colour = species)) +
+  geom_point(size = 5, alpha = .75) +
+  labs(x = paste0('PC1 (', round(100*attr(pcaData, "percentVar")[1], 1), '%)'),
+       y = paste0('PC2 (', round(100*attr(pcaData, "percentVar")[2], 1), '%)'))
+
+```
+
+### Principal component analysis 
+```{r, fig.height=4, fig.width=12}
+most_var.red <- norm_deseq.red %>% dplyr::select(-GeneID) %>% 
+  mutate(vars = apply(., 1, var)) %>% 
+  slice_max(vars, n = 500)
+
+pca.red <- prcomp(t(as.matrix(most_var.red[, -13])), center = TRUE, scale. = FALSE)
+#summary(pca.red)
+
+PCA_dat.red <- as.data.frame(pca.red$x)[, 1:3] %>%
+  rownames_to_column() %>%
+  mutate(species = if_else(grepl('JG', rowname), 'arc', 'sax'),
+         tissue = if_else(grepl('FT', rowname), 'foot', 'repr'))
+
+# Plot for figure
+PCA_dat.red %>%
+  ggplot(aes(x = PC1, y = PC2, colour = species, shape = tissue)) +
+  geom_point(size = 8, alpha = .7) +
+  labs(x = paste0('PC1 (', 100*round(summary(pca.red)$importance[2, 1], 3), '%)'), 
+       y = paste0('PC2 (', 100*round(summary(pca.red)$importance[2, 2], 3), '%)')) +
+  scale_colour_manual(values = sean_col, 
+                      labels = c(expression(italic('L. arc')),
+                                 expression(italic('L. sax')))) +
+  scale_shape_manual(values = c(16, 18), labels = c('Foot', 'Reprod.')) +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.text.align = 0,
+        legend.text = element_text(size = 12),
+        legend.background = element_blank(),
+        axis.text = element_text(size = 10),
+        axis.title = element_text(size = 12)) +
+  #ggsave('plots/PCA_12.red.pdf', height = 3.4, width = 4.8, dpi = 600, useDingbats = FALSE) +
+  NULL
+
+rbind(as.matrix(PCA_dat.red[, c(2, 3)]),
+      as.matrix(PCA_dat.red[, c(2, 4)]),
+      as.matrix(PCA_dat.red[, c(3, 4)])) %>% 
+  bind_cols(species = rep(PCA_dat.red$species, 3),
+            tissue = rep(PCA_dat.red$tissue, 3),
+            pc = rep(c(paste0('PC1 (',100*round(summary(pca.red)$importance[2, 1], 3), '%) vs. PC2 (',
+                              100*round(summary(pca.red)$importance[2, 2], 3), '%)'), 
+                       paste0('PC1 (',100*round(summary(pca.red)$importance[2, 1], 3), '%) vs. PC3 (',
+                              100*round(summary(pca.red)$importance[2, 3], 3), '%)'), 
+                       paste0('PC2 (',100*round(summary(pca.red)$importance[2, 2], 3), '%) vs. PC3 (',
+                              100*round(summary(pca.red)$importance[2, 3], 3), '%)')), 
+                     each = 12)) %>% 
+  ggplot(aes(x = PC1, y = PC2, colour = species, shape = tissue, alpha = .5)) +
+  geom_point(size = 8, alpha = .7) +
+  scale_colour_manual(values = sean_col, 
+                      labels = c(expression(italic('L. sax')),
+                                 expression(italic('L. arc')))) +
+  scale_shape_manual(values = c(16, 18), labels = c('Foot', 'Reprod.')) +
+  facet_wrap(~pc) +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.text.align = 0,
+        legend.text = element_text(size = 12),
+        legend.background = element_blank(),
+        axis.text = element_text(size = 10),
+        axis.title = element_blank(),
+        strip.text = element_text(size = 15)) +
+  #ggsave('plots/PCA_12.pdf', height = 3.4, width = 4.5, dpi = 600, useDingbats = FALSE) +
+  NULL
+
+```
+
+## heatmap
+```{r}
+deseq_scaled.red <- pheatmap:::scale_rows(norm_deseq.red[, -1])
+colnames(deseq_scaled.red) <- colnames(norm_deseq.red[, -1])
+rownames(deseq_scaled.red) <- norm_deseq.red[, 1]
+
+#sampl2 <- sampleInfo %>% filter(!str_detect(samp_info, "o")) %>% filter(samp_info != 'JG3_oJG')
+top_anno_all.red <- HeatmapAnnotation(species = sampl.red$species,
+                                      tissue = str_sub(colnames(deseq_scaled.red), 1, 2), 
+                                      col = list(species = sean_col,
+                                                 tissue = c('FT' = v.pal[1], 
+                                                            'BP' = v.pal[2], 
+                                                            'JG' = v.pal[3])))
+
+#pdf('plots/filtered_scaled_hm.pdf', height = 8, width = 5)
+Heatmap(na.omit(deseq_scaled.red), 
+        col = viridis::inferno(25),
+        #col = RColorBrewer::brewer.pal(name = 'Spectral', n = 11),
+        heatmap_legend_param = list(title = "log2(CPM + 1)",
+                                    title_position = "leftcenter-rot"),
+        # left_annotation = left_anno,
+        # right_annotation = right_anno,
+        top_annotation = top_anno_all.red,
+        show_row_names = FALSE,
+        show_row_dend = FALSE,
+        # show_column_names = FALSE, 
+        # column_split = 3,
+        column_gap = unit(0, "mm"),
+        row_title = NULL,
+        column_title = NULL)
+#dev.off()
+
+```
+
+## Differential expression
+### Tissue differences
+We test for differential expression between tissues for each species separately to find consistently different/species-specific differentially expressed genes in foot compared to reproductive tissue. We define differentially expressed genes based on a log2-fold-change > |2| and FDR corrected p-value < 0.01. 
+
+```{r}
+# foot vs. reprod arcana
+tiss_arc.red <- results(dds.red, tidy = TRUE, name = 'tissue_reprod_vs_foot') %>% as_tibble() %>%
+  mutate(threshold = if_else(padj < 0.01 & abs(log2FoldChange) > 2, "SD", "NS"))
+
+# foot vs. reprod sax
+tiss_sax.red <- results(dds.red, tidy = TRUE, list(c("tissue_reprod_vs_foot", 
+                                             "tissuereprod.speciessax"))) %>% as_tibble() %>%
+  mutate(threshold = if_else(padj < 0.01 & abs(log2FoldChange) > 2, "SD", "NS"))
+
+#table(tiss_arc.red$threshold)
+#table(tiss_sax.red$threshold)
+
+tissue_dat.red <- inner_join(tiss_arc.red,
+                         tiss_sax.red, by = 'row') %>%
+  mutate(sig_a = if_else(abs(log2FoldChange.x) > 2 & padj.x < 0.01, 'sig', 'not'),
+         sig_s = if_else(abs(log2FoldChange.y) > 2 & padj.y < 0.01, 'sig', 'not'),
+         concordant = if_else(sign(log2FoldChange.x) == sign(log2FoldChange.y), 'same', 'diff')) %>%
+  mutate(category = case_when(sig_a == 'sig' & sig_s == 'sig' & concordant == 'same' ~ 'Concordant',
+                              sig_a == 'sig' & sig_s == 'sig' & concordant == 'diff' ~ 'Opposing',
+                              sig_a == 'sig' & sig_s == 'not' ~ 'L. arc',
+                              sig_a == 'not' & sig_s == 'sig' ~ 'L. sax',
+                              TRUE ~ 'No bias'))
+
+tissue_dat.red %>% 
+  ggplot(aes(x = log2FoldChange.x, y = log2FoldChange.y)) + 
+  geom_hline(yintercept = c(-2, 2), lty = 2) +
+  geom_vline(xintercept = c(-2, 2), lty = 2) +
+  geom_abline(slope = 1, lty = 2) +
+  geom_point(aes(colour = category), alpha = .75) +
+  geom_smooth(method = 'lm') +
+  scale_colour_viridis_d(labels = c('Concordant', expression(italic('L. sax')),
+                                    expression(italic('L. arc')), 'No bias', 'Opposing')) +
+  labs(x = expression(paste('log2FC in ', italic('L. arc'))),
+       y = expression(paste('log2FC in ', italic('L. sax')))) +
+  theme_bw() +
+  theme(legend.position = 'bottom',
+        legend.title = element_blank(),
+        strip.text = element_text(face = "bold", size = 15),
+        strip.background = element_rect(fill = "grey"),
+        plot.background = element_rect(colour = NA)) +
+  NULL
+
+# upset(fromList(list(
+#   arc = tiss_arc.red$row[tiss_arc.red$threshold == 'SD'],
+#   sax = tiss_sax.red$row[tiss_sax.red$threshold == 'SD'])))
+
+```
+
+### Species effect for foot
+Next we test for genes differentially expressed between reproductive modes for the foot tissue.  
+```{r}
+# main effect - species effect for foot
+foot_diff.red <- results(dds.red, tidy = TRUE, name = 'species_sax_vs_arc') %>% 
+  mutate(threshold = if_else(padj < 0.01 & abs(log2FoldChange) > 2, "SD", "NS"))
+
+#table(foot_diff.red$threshold)
+
+# volcano plot
+foot_diff.red %>% 
+  ggplot(aes(x = log2FoldChange, y = -log10(pvalue), colour = threshold)) +
+  geom_point() +
+  theme_bw() +
+  theme(legend.position = '') +
+  NULL
+
+```
+
+### Species effect for reproductive tissue
+```{r}
+# species effect for reprod tissue - main effect plus interaction - extra species effect in reprod compared to foot
+repr_diff.red <- results(dds.red, tidy = TRUE, list(c('species_sax_vs_arc', 
+                                                      'tissuereprod.speciessax'))) %>% 
+  mutate(threshold = if_else(padj < 0.01 & abs(log2FoldChange) > 2, "SD", "NS"))
+
+# interaction effect - is species effect different across tissues?
+intr_diff.red <- results(dds.red, tidy = TRUE, name = 'tissuereprod.speciessax') %>% 
+  mutate(threshold = if_else(padj < 0.01 & abs(log2FoldChange) > 2, "SD", "NS"))
+
+#table(repr_diff.red$threshold)
+#table(intr_diff.red$threshold)
+
+# combined interaction + reprod difference excluding foot differences
+cd.red <- setdiff(unique(c(intr_diff.red$row[intr_diff.red$threshold == 'SD'], 
+                           repr_diff.red$row[repr_diff.red$threshold == 'SD'])), 
+                  foot_diff.red$row[foot_diff.red$threshold == 'SD'])
+
+length(intr_diff$row[intr_diff$threshold == 'SD'])
+intersect(repr_diff$row[repr_diff$threshold == 'SD'], foot_diff$row[foot_diff$threshold == 'SD']) %>% length
+setdiff(repr_diff$row[repr_diff$threshold == 'SD'], foot_diff$row[foot_diff$threshold == 'SD']) %>% length
+
+length(intr_diff.red$row[intr_diff.red$threshold == 'SD'])
+intersect(repr_diff.red$row[repr_diff.red$threshold == 'SD'], foot_diff.red$row[foot_diff.red$threshold == 'SD']) %>% length
+setdiff(repr_diff.red$row[repr_diff.red$threshold == 'SD'], foot_diff.red$row[foot_diff.red$threshold == 'SD']) %>% length
+
+# upset(fromList(list(
+#   foot = foot_diff.red$row[foot_diff.red$threshold == 'SD'],
+#   repr = repr_diff.red$row[repr_diff.red$threshold == 'SD'],
+#   intr = intr_diff.red$row[intr_diff.red$threshold == 'SD'])))
+
+# exclude foot differences
+rep_only.red <- setdiff(repr_diff.red$row[repr_diff.red$threshold == 'SD'],
+                        foot_diff.red$row[foot_diff.red$threshold == 'SD'])
+
+```
+
+## volcano plot
+```{r}
+lab_text <- data.frame(#P.Value = 1, 
+                       log2FoldChange = c(-10, 10),
+                       lab = c("L. arc", 'L. sax'),
+                       SigDiff = NA)
+
+repr_diff.red %>% 
+  ggplot(aes(x = log2FoldChange, y = -log10(pvalue), colour = threshold)) +
+  geom_point() +
+  theme_bw() +
+  theme(legend.position = '') + 
+  geom_text(data = lab_text, colour = 'black', hjust = 'middle',
+            aes(y = 0.5, label = paste0(lab)), size = 10, fontface = "italic") +
+  geom_segment(aes(x = 15, y = 0, xend = 30, yend = 0), colour = 'black',
+               arrow = arrow(length = unit(0.5, "cm"))) +
+  geom_segment(aes(x = -15, y = 0, xend = -30, yend = 0), colour = 'black',
+               arrow = arrow(length = unit(0.5, "cm"))) +
+  NULL
+
+# merge data
+comb_all.red <- inner_join(repr_diff.red,
+                           foot_diff.red,
+                           by = 'row', suffix = c('.repr', '.foot')) %>% 
+  mutate(differ = case_when(threshold.repr == 'SD' & threshold.foot == 'SD' ~ 'both',
+                            threshold.repr == 'SD' & threshold.foot != 'SD' ~ 'repr',
+                            threshold.repr != 'SD' & threshold.foot == 'SD' ~ 'foot',
+                            TRUE ~ 'none'),
+         tissue_diff = case_when(row %in% intersect(tiss_arc.red$row[tiss_arc.red$threshold == 'SD'],
+                                                    tiss_sax.red$row[tiss_sax.red$threshold == 'SD']) ~ 'both',
+                                 row %in% tiss_arc.red$row[tiss_arc.red$threshold == 'SD'] ~ 'arc',
+                                 row %in% tiss_sax.red$row[tiss_sax.red$threshold == 'SD'] ~ 'sax'),
+         # #sig_diff = if_else(row %in% cd, 'sd', 'ns'),
+         # int_diff = if_else(row %in% intr_diff$row[intr_diff$threshold == 'SD'], 'sd', 'ns'),
+         # rep_diff = if_else(row %in% repr_diff$row[repr_diff$threshold == 'SD'], 'sd', 'ns'),
+         # i2 = case_when(row %in% foot_diff$row[foot_diff$threshold == 'SD'] ~ 'foot',
+         #                row %in% repr_diff$row[repr_diff$threshold == 'SD'] ~ 'repr',
+         #                row %in% intr_diff$row[intr_diff$threshold == 'SD'] ~ 'intr',
+         #                TRUE ~ 'ns')
+         )
+
+# number of differentially expressed genes in reproductive system found higher in each species
+comb_all.red %>% filter(differ == 'repr') %>% 
+  mutate(up_in = if_else(log2FoldChange.repr > 2, "sax", "arc")) %>% 
+  dplyr::count(up_in) %>% 
+  mutate(prop.n = n/sum(n))
+
+
+table(comb_all.red$differ)
+table(comb_all.red$int_diff)
+table(comb_all.red$i2)
+
+# ## check overlap with original analysis.
+# #rep_only
+
+upset(fromList(list(
+  old = rep_only,
+  new = rep_only.red)))
+
+
+lab_text.cor <- data.frame(log2FoldChange.repr = c(-25, 25),
+                           log2FoldChange.foot = c(-25, 25),
+                           lab = c("L. arc", 'L. sax'),
+                           SigDiff = NA)
+
+# correlation
+comb_all.red %>% filter(differ == 'none') %>% 
+  ggplot(aes(x = log2FoldChange.repr, y = log2FoldChange.foot)) + 
+  geom_hline(yintercept = c(-2, 2), lty = 2) +
+  geom_vline(xintercept = c(-2, 2), lty = 2) +
+  geom_point(size = 0.5, alpha = .25) +
+  geom_point(data = comb_all %>% filter(differ != 'none'),
+             aes(colour = differ),
+             alpha = .5) +
+  scale_colour_manual(values = MetBrewer::met.brewer('Hiroshige')[c(1, 4, 10)]) +
+  theme_bw() +
+  #theme(legend.position = '') +
+  geom_text(data = lab_text.cor, colour = 'black', hjust = 'middle',
+            aes(y = -28, label = paste0(lab)), size = 5, fontface = "italic") +
+  # x axis arrows
+  geom_segment(aes(x = 15, y = -30, xend = 30, yend = -30), colour = 'black',
+               arrow = arrow(length = unit(0.5, "cm"))) +
+  geom_segment(aes(x = -15, y = -30, xend = -30, yend = -30), colour = 'black',
+               arrow = arrow(length = unit(0.5, "cm"))) +
+  # y axis arrows
+  geom_segment(aes(x = -30, y = 15, xend = -30, yend = 30), colour = 'black',
+               arrow = arrow(length = unit(0.5, "cm"))) +
+  geom_segment(aes(x = -30, y = -15, xend = -30, yend = -30), colour = 'black',
+               arrow = arrow(length = unit(0.5, "cm"))) +
+  geom_text(data = lab_text.cor, colour = 'black', hjust = 'middle',
+            aes(x = -28, label = paste0(lab)), size = 5, angle = 90, fontface = "italic") +
+  #ggsave('plots/DA_cor.pdf', height = 3.4, width = 4.8, dpi = 600, useDingbats = FALSE) +
+  NULL
+
+# counts
+comb_all %>%
+  group_by(differ) %>% dplyr::count() %>% filter(differ != 'none')
+
+comb_all.red %>%
+  group_by(differ) %>% dplyr::count() %>% filter(differ != 'none')
+
+comb_all.red %>% 
+  mutate(up_in = if_else(log2FoldChange.repr > 2, 'sax', 'arc')) %>% 
+  group_by(differ, up_in) %>% dplyr::count() %>% filter(differ != 'none') %>% 
+  ggplot(aes(x = up_in, y = n, fill = differ)) +
+  geom_col() +
+  scale_fill_manual(values = MetBrewer::met.brewer('Hiroshige')[c(1, 4, 10)]) +
+  theme_bw() +
+  theme(legend.position = '') +
+  #ggsave('plots/DA_numbers.red.jpg', height = 4, width = 4, dpi = 600) +
+  #ggsave('plots/DA_numbers.red.pdf', height = 4, width = 4, dpi = 600, useDingbats = FALSE) +
+  NULL
+
+
+# comparing old to new results
+upset(fromList(list(
+  old = repr_diff$row[repr_diff$threshold == 'SD'],
+  new = repr_diff.red$row[repr_diff.red$threshold == 'SD'])))
+
+upset(fromList(list(
+  old = foot_diff$row[foot_diff$threshold == 'SD'],
+  new = foot_diff.red$row[foot_diff.red$threshold == 'SD'])))
+
+left_join(comb_all, comb_all.red, by = "row") %>% 
+  ggplot(aes(x = log2FoldChange.repr.x, y = log2FoldChange.repr.y)) +
+  geom_point()
+
+comb_all %>% select(row, contains("baseMean"), contains("log2"), contains("threshold"), differ) %>% 
+  pivot_longer(2:3) %>% 
+  ggplot(aes(x = name, y = log2(value), colour = threshold.foot)) +
+  geom_boxplot(notch = TRUE)
+
+
+
+difdat <- left_join(repr_diff, repr_diff.red, by = "row") %>% 
+  mutate(thres.dif = case_when(threshold.x == threshold.y ~ "same",
+                               threshold.x == "SD" & threshold.y != "SD" ~ "SDold",
+                               threshold.x != "SD" & threshold.y == "SD" ~ "SDnew",
+                               threshold.x == "SD" & threshold.y == "NS" ~ "SDold",
+                               threshold.x == "NS" & threshold.y == "SD" ~ "SDnew"))
+
+
+difdat %>% 
+  ggplot(aes(x = log2FoldChange.x, y = log2FoldChange.y, colour = thres.dif)) +
+  geom_hline(yintercept = c(-2, 2), lty = 2) +
+  geom_vline(xintercept = c(-2, 2), lty = 2) +
+  geom_abline(slope = 1, lty = 2) +
+  geom_point() +
+  labs(x = "log2FC sax - arc (old)", y = "log2FC sax - arc (new)") +
+  #ggsave('plots/DA_cor.jpg', height = 4, width = 5, dpi = 600) +
+  NULL
+
+difdat %>% drop_na(thres.dif) %>% 
+  filter(thres.dif != "same") %>% 
+  ggplot(aes(x = log2(baseMean.y), y = log2FoldChange.y, colour = thres.dif)) +
+  geom_point(data = difdat %>% filter(thres.dif == "same"), alpha = .5, colour = "grey") +
+  geom_point(alpha = .5) +
+  scale_colour_manual(values = c("red", "blue")) +
+  #ggsave('plots/MA_new.jpg', height = 4, width = 5, dpi = 600) +
+  NULL
+
+difdat %>% drop_na(thres.dif) %>% 
+  filter(thres.dif != "same") %>% 
+  ggplot(aes(x = log2(baseMean.x), y = log2FoldChange.x, colour = thres.dif)) +
+  geom_point(data = difdat %>% filter(thres.dif == "same"), alpha = .5, colour = "grey") +
+  geom_point(alpha = .5) +
+  scale_colour_manual(values = c("red", "blue")) +
+  #ggsave('plots/MA_old.jpg', height = 4, width = 5, dpi = 600) +
+  NULL
+
+difdat %>% #drop_na(thres.dif) %>% 
+  #filter(thres.dif != "same") %>% 
+  ggplot(aes(x = log2(baseMean.x), y = log2(baseMean.y), colour = thres.dif)) +
+  #geom_point(data = difdat %>% filter(thres.dif == "same"), alpha = .5, colour = "grey") +
+  geom_point(alpha = .5) +
+  geom_abline(slope = 1, lty = 2) +
+  NULL
+
+```
+
+# DEG Tr associations
+```{r}
+# sean_positions <- read.csv('data/reproductive_mode_TWISST.popGenwins.csv')
+# str(sean_positions)
+# summary(sean_positions)
+# 
+# library(ape)
+# 
+# littorina_gff <- read.gff('data/Littorina_scaffolded_PacBio_run2_7_Oct_2016_unmasked_maker.gff', 
+#                           GFF3 = FALSE) %>% 
+#   filter(feature == 'gene') %>% 
+#   dplyr::rename(gene_start = start, gene_end = end)
+# 
+# head(littorina_gff)
+# str(littorina_gff)
+# summary(littorina_gff)
+# 
+# littorina_gff$gene_id <- gsub('ID=', '', x = str_split(littorina_gff$attributes, pattern = ';') %>% map_chr(c(1)))
+# 
+# # gene lengths
+# littorina_gff %>% 
+#   mutate(gene_length = gene_end - gene_start) %>% #summary
+#   ggplot(aes(x = gene_length)) + 
+#   geom_histogram()
+# 
+# library(data.table)
+# 
+# setDT(sean_positions)
+# setDT(littorina_gff)
+# 
+# # comb_pos <- nov_snps[gene_positions_nov, 
+# #                            on = .(position >= m_start, position <= m_end, # indicate x range
+# #                                   contig = seqname), # indicate y range
+# #                            nomatch = NA, 
+# #                            .(m_start, m_end, m_length, gene, ID, product, SNP_id), 
+# #                            allow.cartesian = TRUE]
+# 
+# # comb_pos <- sean_positions[gtf_BP1_oBP, 
+# #                            on = .(mid >= V4, mid <= V5, # indicate x range
+# #                                   scaffold = V1), # indicate y range
+# #                            nomatch = NA, 
+# #                            .(V4, V5, mid, scaffold, V1, gene_id, transcript_id), 
+# #                            allow.cartesian = TRUE]
+# # #write_csv(comb_pos, 'output/BP1_oBP.positions.csv')
+# 
+# dt_final_data <- setDT(df2)[df1, 
+#                             .(ID, f_date, ACCNUM, flmNUM, start_date, end_date, x.date, fyear, at, lt), 
+#                             on = .(ID, date > start_date, date <= end_date)]
+# 
+# comb_pos <- sean_positions[littorina_gff, 
+#                             .(gene_id, seqname, gene_start, gene_end,
+#                               output_order, scaffold, start, end, mid), 
+#                             on = .(scaffold = seqname, mid >= gene_start, mid <= gene_end)
+#                            #nomatch = NULL
+#                            ]
+# 
+# 
+# # comb_pos <- sean_positions[littorina_gff, 
+# #                            on = .(mid >= gene_start, mid <= gene_end, # indicate x range
+# #                                   scaffold = seqname), # indicate y range
+# #                            nomatch = NA, 
+# #                            .(seqname, gene_start, gene_end, gene_id, 
+# #                              output_order, scaffold, start, end, mid), 
+# #                            allow.cartesian = TRUE]
+# 
+# str(comb_pos)
+# head(comb_pos)
+# 
+# comb_pos[which(is.na(comb_pos$output_order) == TRUE), ] %>% dim
+# 
+# dim(comb_pos)
+# n_distinct(comb_pos$gene_id)
+# 
+# comb_pos[which(duplicated(comb_pos$gene_id) == TRUE), ]
+# 
+# # #write_csv(comb_pos, 'output/gff.positions.csv')
+# 
+# comb_pos %>% 
+#   left_join(read.csv('data/contig_LG_inversion.csv'), by = c('scaffold' = 'contig'))
+# 
+# left_join(comb_all.red,
+#           comb_pos,
+#           by = c('row' = 'gene_id')) %>% write_csv('output/deseq_results_foot_reprod.REDUCED.csv')
+# 
+# left_join(comb_all.red,
+#           comb_pos,
+#           by = c('row' = 'gene_id')) %>% #write_csv('output/deseq_results_foot_reprod.csv')
+#   drop_na(output_order) %>% group_by(output_order) %>% dplyr::count() %>% filter(n > 1)
+#   distinct(row, .keep_all = TRUE) %>% 
+#   filter(differ == 'repr') %>% 
+#   left_join(read.csv('data/contig_LG_inversion.csv'), by = c('scaffold' = 'contig')) %>% 
+#   #group_by(LG) %>% dplyr::count()
+#   #drop_na(LG) %>% 
+#   ggplot(aes(x = factor(LG), y = abs(log2FoldChange.repr))) + 
+#   geom_jitter(width = .25, alpha = .5)
+  
+```
+
+# Heatmap - all genes
+This heatmap shows the expression of all `r nrow(deseq_scaled)` used in the analysis, highlighting differentially expressed genes between reproductive tissue and foot tissue on the left annotation and differentially expressed genes between reproductive modes on the right hand side. 
+```{r}
+anno_dat.red <- deseq_scaled.red %>% as.data.frame() %>% 
+  rownames_to_column() %>% 
+  left_join(comb_all.red, by = c('rowname' = 'row'))
+
+top_anno_all.red <- HeatmapAnnotation(species = sampl.red$species,
+                                      tissue = str_sub(colnames(norm_deseq.red)[-1], 1, 2), 
+                                      col = list(species = sean_col,
+                                                 tissue = c('FT' = v.pal[1], 
+                                                            'BP' = v.pal[2], 
+                                                            'JG' = v.pal[3])))
+
+left_anno.red <- rowAnnotation(tiss = anno_dat.red$tissue_diff,
+                               col = list(tiss = c(arc = 'blue',
+                                                   sax = 'red',
+                                                   both = 'purple')),
+                               na_col = NA,
+                               title = NULL,
+                               show_annotation_name = FALSE)
+
+right_anno.red <- rowAnnotation(DE = anno_dat.red$differ,
+                                col = list(DE = c(none = NA,
+                                                  repr = MetBrewer::met.brewer('Hiroshige')[10],
+                                                  foot = MetBrewer::met.brewer('Hiroshige')[4],
+                                                  both = MetBrewer::met.brewer('Hiroshige')[1])),
+                                title = NULL,
+                                show_annotation_name = FALSE)
+
+
+column_dend = as.dendrogram(hclust(dist(t(deseq_scaled.red))))
+plot(column_dend)
+
+colnames(deseq_scaled.red)
+
+#pdf('plots/DEG_all_genes_reduced.pdf', height = 8, width = 5)
+Heatmap(na.omit(deseq_scaled.red),
+        col = viridis::inferno(25),
+        heatmap_legend_param = list(title = "log2(CPM + 1)",
+                                    direction = "horizontal"),
+        #left_annotation = left_anno.red,
+        #right_annotation = right_anno.red,
+        top_annotation = top_anno_all.red,
+        show_row_names = FALSE,
+        show_row_dend = FALSE,
+        show_column_names = FALSE,
+        #cluster_columns = rotate(column_dend),
+        # column_split = 3,
+        #row_split = 2,
+        column_gap = unit(0, "mm"),
+        row_title = NULL,
+        column_title = NULL)
+#dev.off()
+
+```
+
+# Heatmap - differentially expressed genes only
+```{r}
+
+diff.mat.red <- anno_dat.red %>% 
+  filter(differ != 'none', !rowname %in% c("Lsa_00038796", "Lsa_00002870", "Lsa_00010713")) %>% 
+  #dplyr::select(starts_with('BP'), starts_with('JG')) %>% 
+  dplyr::select(BP1_BPF:JG3_JGF) %>% 
+  as.matrix()
+
+col.info.red <- data.frame(coln = colnames(diff.mat.red)) %>% 
+  mutate(condition = case_when(grepl('^BP', x = coln) ~ 'REP_sax',
+                               grepl('^JG', x = coln) ~ 'REP_arc',
+                               grepl('^FT.*JGF$', x = coln) ~ 'FT_arc',
+                               grepl('^FT.*BPF$', x = coln) ~ 'FT_sax'), 
+         species = if_else(grepl('BP', coln), 'sax', 'arc'), 
+         tissue = if_else(grepl('FT', coln), 'foot', 'reprod'),
+         Replicate = str_sub(coln, 3, 3))
+
+top_anno_de.red <- HeatmapAnnotation(species = col.info.red$species,
+                                     tissue = col.info.red$tissue, 
+                                     col = list(species = sean_col,
+                                                tissue = c('foot' = v.pal[1], 
+                                                           #'BP' = v.pal[2], 
+                                                           'reprod' = v.pal[3])))
+
+#pdf('plots/DEG_only_reduced.pdf', height = 8, width = 5)
+Heatmap(diff.mat.red, 
+        col = viridis::inferno(25),
+        heatmap_legend_param = list(title = "log2(CPM + 1)",
+                                    direction = "horizontal"),
+        top_annotation = top_anno_de.red,
+        show_row_names = FALSE,
+        show_row_dend = FALSE,
+        show_column_names = FALSE,
+        # column_split = 3,
+        column_gap = unit(0, "mm"),
+        row_title = NULL,
+        column_title = NULL)
+#dev.off()
+
+#hist(as.matrix(anno_dat %>% filter(differ == 'repr') %>% dplyr::select(starts_with('BP'), starts_with('JG'))))
+
+```
+
+### Look at expression in each tissue
+```{r}
+
+raw_vals_long <- all.Filtered %>% #as_tibble() %>% 
+  pivot_longer(2:22) %>% 
+  mutate(condition = case_when(grepl('^BP', x = name) ~ 'REP_sax',
+                               grepl('^JG', x = name) ~ 'REP_arc',
+                               grepl('^FT.*JGF$', x = name) ~ 'FT_arc',
+                               grepl('^FT.*BPF$', x = name) ~ 'FT_sax'), 
+         species = if_else(grepl('BP', name), 'sax', 'arc'), 
+         tissue = if_else(grepl('FT', name), 'foot', 'reprod'),
+         reprod_only = if_else(grepl('o', name), 'yes', 'no'),
+         Replicate = str_sub(name, 3, 3))
+
+raw_vals_long %>% filter(value > 0) %>% 
+  ggplot(aes(x = log2(value))) +
+  geom_density(aes(fill = tissue, colour = tissue), alpha = .5) + 
+  facet_wrap(~ species) +
+  #ggsave('plots/tissue_expression.jpg', height = 3.4, width = 8, dpi = 600) +
+  NULL
+
+raw_vals_long %>% 
+  ggplot(aes(x = tissue, y = log2(value + 1), fill = species)) +
+  geom_boxplot()
+
+raw_vals_long %>% 
+  group_by(species, tissue, Replicate) %>% 
+  summarise(mn = mean(value)) %>% 
+  ggplot(aes(x = tissue, y = mn, fill = species)) +
+  geom_boxplot() +
+  geom_jitter(aes(colour = species))
+
+# total number of genes expressed in each tissue
+raw_vals_long %>% filter(value > 0) %>% 
+  group_by(name) %>% 
+  dplyr::count() %>% 
+  mutate(condition = case_when(grepl('^BP', x = name) ~ 'REP_sax',
+                               grepl('^JG', x = name) ~ 'REP_arc',
+                               grepl('^FT.*JGF$', x = name) ~ 'FT_arc',
+                               grepl('^FT.*BPF$', x = name) ~ 'FT_sax'), 
+         species = if_else(grepl('BP', name), 'sax', 'arc'), 
+         tissue = if_else(grepl('FT', name), 'foot', 'reprod'),
+         reprod_only = if_else(grepl('o', name), 'yes', 'no'),
+         Replicate = str_sub(name, 3, 3)) %>% 
+  ggplot(aes(x = species, y = n, fill = tissue)) +
+  geom_boxplot() +
+  geom_point(aes(fill = tissue), size = 3, pch = 21,
+             position = position_dodge(width = .75)) +
+  labs(y = "no. genes expressed") +
+  #ggsave('plots/gene_counts.jpg', height = 3.4, width = 4.8, dpi = 600) +
+  NULL
+
+
+long_norm.red <- norm_deseq.red %>% 
+  pivot_longer(2:13) %>% 
+  mutate(species = str_sub(name, 5, 6),
+         tissue = str_sub(name, 1, 2),
+         tissue = case_when(grepl("BP", x = tissue) ~ "reprod",
+                            grepl("JG", x = tissue) ~ "reprod",
+                            TRUE ~ tissue))
+
+long_norm.red %>% 
+  ggplot(aes(x = value)) +
+  geom_density(aes(fill = tissue, colour = species), alpha = .5)
+
+cpm(cts, log = TRUE) %>% as_tibble() %>% 
+  pivot_longer(1:12) %>% 
+  mutate(species = str_sub(name, 5, 6),
+         tissue = str_sub(name, 1, 2),
+         tissue = case_when(grepl("BP", x = tissue) ~ "sax",
+                            grepl("JG", x = tissue) ~ "sax",
+                            TRUE ~ tissue)) %>% 
+  ggplot(aes(x = value)) +
+  geom_density(aes(fill = species, colour = species), alpha = .5) + 
+  facet_wrap(~ tissue)
+
+cpm(cts, log = TRUE) %>% as_tibble() %>% 
+  pivot_longer(1:12) %>% 
+  mutate(condition = case_when(grepl('^BP', x = name) ~ 'REP_sax',
+                               grepl('^JG', x = name) ~ 'REP_arc',
+                               grepl('^FT.*JGF$', x = name) ~ 'FT_arc',
+                               grepl('^FT.*BPF$', x = name) ~ 'FT_sax'), 
+         species = if_else(grepl('BP', name), 'sax', 'arc'), 
+         tissue = if_else(grepl('FT', name), 'foot', 'reprod'),
+         reprod_only = if_else(grepl('o', name), 'yes', 'no'),
+         Replicate = str_sub(name, 3, 3)) %>% 
+  ggplot(aes(x = tissue, y = value, colour = species)) +
+  geom_boxplot()
+
+sizeFactors(dds) %>% as.data.frame() %>% rownames_to_column() %>% 
+  mutate(condition = case_when(grepl('^BP', x = rowname) ~ 'REP_sax',
+                               grepl('^JG', x = rowname) ~ 'REP_arc',
+                               grepl('^FT.*JGF$', x = rowname) ~ 'FT_arc',
+                               grepl('^FT.*BPF$', x = rowname) ~ 'FT_sax'), 
+         species = if_else(grepl('BP', rowname), 'sax', 'arc'), 
+         tissue = if_else(grepl('FT', rowname), 'foot', 'reprod'),
+         reprod_only = if_else(grepl('o', rowname), 'yes', 'no'),
+         Replicate = str_sub(rowname, 3, 3)) %>% 
+  ggplot(aes(x = species, y = ., fill = tissue)) +
+  geom_boxplot() +
+  geom_point(aes(colour = tissue))
+
+normLibSizes(dds)
 
 ```
