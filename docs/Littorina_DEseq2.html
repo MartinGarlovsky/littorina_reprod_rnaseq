@@ -15,7 +15,7 @@
 
 <title>Littorina_DEseq2</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -31,15 +31,15 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -402,7 +402,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-23
+<strong>Last updated:</strong> 2023-10-26
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -420,7 +420,7 @@ title="This is the local directory in which the code in this file was executed."
 This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
 analysis was created with <a
   href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
 that were applied when the results were created. The <em>Past
 versions</em> tab lists the development history.
 </p>
@@ -533,15 +533,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskylittorinareprodrnaseqtreeca2b4bca0f73bc120e33ae188e1971bd53e3434ftargetblankca2b4bca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskylittorinareprodrnaseqtree8ad6e1c5115493aa823ee83cc14e99f5ca12ecc4targetblank8ad6e1ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/tree/ca2b4bca0f73bc120e33ae188e1971bd53e3434f" target="_blank">ca2b4bc</a>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/tree/8ad6e1c5115493aa823ee83cc14e99f5ca12ecc4" target="_blank">8ad6e1c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskylittorinareprodrnaseqtreeca2b4bca0f73bc120e33ae188e1971bd53e3434ftargetblankca2b4bca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskylittorinareprodrnaseqtree8ad6e1c5115493aa823ee83cc14e99f5ca12ecc4targetblank8ad6e1ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -551,7 +551,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/tree/ca2b4bca0f73bc120e33ae188e1971bd53e3434f" target="_blank">ca2b4bc</a>.
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/tree/8ad6e1c5115493aa823ee83cc14e99f5ca12ecc4" target="_blank">8ad6e1c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -566,12 +566,21 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
 
 Untracked files:
+    Untracked:  README.html
+    Untracked:  Stankowski_et_al_R1_RB_KJ_MDG.docx
+    Untracked:  data/Littorina_scaffolded_PacBio_run2_7_Oct_2016_unmasked_maker.gff
     Untracked:  data/higherLower_genes.xlsx
     Untracked:  data/mixed_gene_count_matrix.csv
+    Untracked:  data/reproductive_mode_TWISST.popGenwins.csv
     Untracked:  output/deseq_hm_md.rds
+    Untracked:  output/deseq_results_foot_reprod.REDUCED.csv
+    Untracked:  plots/
 
 </code></pre>
 <p>
@@ -617,6 +626,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/8ad6e1c5115493aa823ee83cc14e99f5ca12ecc4/analysis/Littorina_DEseq2.Rmd" target="_blank">8ad6e1c</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-10-26
+</td>
+<td>
+wflow_publish("analysis/Littorina_DEseq2.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MartinGarlovsky/littorina_reprod_rnaseq/2573add37b218aa666e0791389f7eb801bb26df2/docs/Littorina_DEseq2.html" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -704,7 +747,7 @@ c.pal &lt;- viridis::inferno(n = 7)</code></pre>
 Here, we first filter the count matrix to remove very lowly expressed
 genes, with less than 20 counts total across any replicate.</p>
 <pre class="r"><code># Importing data
-mixed_count_matrix &lt;- read.csv(&quot;data/mixed_gene_count_matrix.csv&quot;, stringsAsFactors = F, 
+mixed_count_matrix &lt;- read.csv(&quot;data/mixed_gene_count_matrix.csv&quot;, stringsAsFactors = FALSE, 
                                header = T, row.names = 1)
 
 #head(mixed_count_matrix)
@@ -749,6 +792,43 @@ this sample from further analysis.</p>
   ggplot(aes(x = name, y = cpm(value, log = TRUE), fill = condition)) +
   geom_boxplot()</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-3-1.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="heatmap" class="section level2">
 <h2>Heatmap</h2>
@@ -844,17 +924,165 @@ par(mfrow = c(1, 2))
 boxplot(cpm(cts, log = TRUE), main = &#39;log2(cpm)&#39;)
 boxplot(norm_deseq[, -1], main = &#39;normalised counts&#39;)</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-1.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>par(mfrow = c(1, 1))
 #dev.off()
 
 plotMA(dds)</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-2">
+Past versions of unnamed-chunk-6-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-2.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plotDispEsts(dds)</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-3">
+Past versions of unnamed-chunk-6-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-3.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ntd &lt;- normTransform(dds)
 library(vsn)
 meanSdPlot(assay(ntd))</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-4">
+Past versions of unnamed-chunk-6-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-4.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># # size/normalisation factors
 # data.frame(size.factor = sizeFactors(dds)) %&gt;% 
 #   rownames_to_column()
@@ -874,6 +1102,43 @@ pcaData %&gt;%
   labs(x = paste0(&#39;PC1 (&#39;, round(100*attr(pcaData, &quot;percentVar&quot;)[1], 1), &#39;%)&#39;),
        y = paste0(&#39;PC2 (&#39;, round(100*attr(pcaData, &quot;percentVar&quot;)[2], 1), &#39;%)&#39;))</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-5">
+Past versions of unnamed-chunk-6-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-5.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># initial heatmap
 Heatmap(pheatmap:::scale_rows(norm_deseq[, -1]), 
         #col = RColorBrewer::brewer.pal(name = &#39;Spectral&#39;, n = 11),
@@ -883,6 +1148,43 @@ Heatmap(pheatmap:::scale_rows(norm_deseq[, -1]),
         row_title = NULL,
         column_title = NULL)</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-6">
+Past versions of unnamed-chunk-6-6.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-6-6.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="principal-component-analysis" class="section level3">
 <h3>Principal component analysis</h3>
 <pre class="r"><code>most_var &lt;- norm_deseq %&gt;% dplyr::select(-GeneID) %&gt;% 
@@ -917,6 +1219,43 @@ PCA_dat %&gt;%
   #ggsave(&#39;plots/PCA_12.pdf&#39;, height = 3.4, width = 4.8, dpi = 600, useDingbats = FALSE) +
   NULL</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-7-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-7-1.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>rbind(as.matrix(PCA_dat[, c(2, 3)]),
       as.matrix(PCA_dat[, c(2, 4)]),
       as.matrix(PCA_dat[, c(3, 4)])) %&gt;% 
@@ -947,6 +1286,43 @@ PCA_dat %&gt;%
   #ggsave(&#39;plots/PCA_12.pdf&#39;, height = 3.4, width = 4.5, dpi = 600, useDingbats = FALSE) +
   NULL</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-7-2.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
+Past versions of unnamed-chunk-7-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-7-2.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="heatmap-1" class="section level2">
 <h2>heatmap</h2>
@@ -980,6 +1356,43 @@ Heatmap(deseq_scaled,
         row_title = NULL,
         column_title = NULL)</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-8-1.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#dev.off()</code></pre>
 </div>
 <div id="differential-expression" class="section level2">
@@ -1033,6 +1446,43 @@ tissue_dat %&gt;%
         plot.background = element_rect(colour = NA)) +
   NULL</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-9-1.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># upset(fromList(list(
 #   arc = tiss_arc$row[tiss_arc$threshold == &#39;SD&#39;],
 #   sax = tiss_sax$row[tiss_sax$threshold == &#39;SD&#39;])))</code></pre>
@@ -1055,6 +1505,43 @@ foot_diff %&gt;%
   theme(legend.position = &#39;&#39;) +
   NULL</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-10-1.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="species-effect-for-reproductive-tissue" class="section level3">
 <h3>Species effect for reproductive tissue</h3>
@@ -1115,6 +1602,43 @@ norm_deseq %&gt;%
                geom = &quot;point&quot;, shape = 5, size = 3) +
   NULL</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-11-1.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="volcano-plot" class="section level2">
@@ -1137,6 +1661,43 @@ repr_diff %&gt;%
                arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
   NULL</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-1.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># merge data
 comb_all &lt;- inner_join(repr_diff,
                        foot_diff,
@@ -1193,6 +1754,43 @@ norm_deseq %&gt;%
   #ggsave(&#39;plots/sean_plots.pdf&#39;, height = 6, width = 14) +
   NULL</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-2">
+Past versions of unnamed-chunk-12-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-2.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># table(comb_all$differ)
 # table(comb_all$int_diff)
 # table(comb_all$i2)
@@ -1231,6 +1829,43 @@ comb_all %&gt;% filter(differ == &#39;none&#39;) %&gt;%
   #ggsave(&#39;plots/DA_cor.pdf&#39;, height = 3.4, width = 4.8, dpi = 600, useDingbats = FALSE) +
   NULL</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-3">
+Past versions of unnamed-chunk-12-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-3.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># # counts
 # comb_all %&gt;% 
 #   group_by(differ) %&gt;% dplyr::count() %&gt;% filter(differ != &#39;none&#39;)
@@ -1246,6 +1881,43 @@ comb_all %&gt;%
   #ggsave(&#39;plots/DA_numbers.pdf&#39;, height = 4, width = 4, dpi = 600, useDingbats = FALSE) +
   NULL</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-4">
+Past versions of unnamed-chunk-12-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-12-4.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="heatmap---all-genes" class="section level1">
@@ -1282,12 +1954,14 @@ right_anno &lt;- rowAnnotation(DE = anno_dat$differ,
                             title = NULL,
                             show_annotation_name = FALSE)
 
-#pdf(&#39;plots/DE_anno_hm.pdf&#39;, height = 8, width = 5)
+#pdf(&#39;plots/DE_anno_hm.pdf&#39;, height = 8, width = 7)
 Heatmap(deseq_scaled,
         col = viridis::inferno(25),
         #col = RColorBrewer::brewer.pal(name = &#39;Spectral&#39;, n = 11),
+        # heatmap_legend_param = list(title = &quot;log2(CPM + 1)&quot;,
+        #                             title_position = &quot;leftcenter-rot&quot;),
         heatmap_legend_param = list(title = &quot;log2(CPM + 1)&quot;,
-                                    title_position = &quot;leftcenter-rot&quot;),
+                                    direction = &quot;horizontal&quot;),
         left_annotation = left_anno,
         right_annotation = right_anno,
         top_annotation = top_anno_all,
@@ -1300,6 +1974,43 @@ Heatmap(deseq_scaled,
         row_title = NULL,
         column_title = NULL)</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-13-1.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#dev.off()</code></pre>
 </div>
 <div id="heatmap---differentially-expressed-genes-only"
@@ -1319,8 +2030,10 @@ top_anno_de &lt;- HeatmapAnnotation(species = sampl2$species[sampl2$tissue == &#
 Heatmap(anno_dat %&gt;% filter(differ == &#39;repr&#39;) %&gt;% dplyr::select(starts_with(&#39;BP&#39;), starts_with(&#39;JG&#39;)), 
         col = viridis::inferno(25),
         #col = RColorBrewer::brewer.pal(name = &#39;Spectral&#39;, n = 11),
+        # heatmap_legend_param = list(title = &quot;log2(CPM + 1)&quot;,
+        #                             title_position = &quot;leftcenter-rot&quot;),
         heatmap_legend_param = list(title = &quot;log2(CPM + 1)&quot;,
-                                    title_position = &quot;leftcenter-rot&quot;),
+                                    direction = &quot;horizontal&quot;),
         #left_annotation = left_anno,
         #right_annotation = right_anno,
         top_annotation = top_anno_de,
@@ -1333,9 +2046,966 @@ Heatmap(anno_dat %&gt;% filter(differ == &#39;repr&#39;) %&gt;% dplyr::select(st
         row_title = NULL,
         column_title = NULL)</code></pre>
 <p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/littorina_reprod_rnaseq/blob/2573add37b218aa666e0791389f7eb801bb26df2/docs/figure/Littorina_DEseq2.Rmd/unnamed-chunk-14-1.png" target="_blank">2573add</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2023-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#dev.off()
 
 #hist(as.matrix(anno_dat %&gt;% filter(differ == &#39;repr&#39;) %&gt;% dplyr::select(starts_with(&#39;BP&#39;), starts_with(&#39;JG&#39;))))</code></pre>
+</div>
+<div id="response-to-reviewer" class="section level1">
+<h1>&gt;&gt;&gt; response to reviewer</h1>
+<p>After filtering we are left with 13945 genes (34%). Inspecting
+boxplots of cpms before and after normalisation shows replicates behave
+well. A principal component analysis (PCA) plot of the top 500 most
+variable genes shows samples cluster by tissue type (foot
+vs. reproductive tissue) on the first PC (67.2% variance explained) and
+then by reproductive mode (brooders vs. egg layers) on the second PC
+(12.6% var. expl.). The heatmap now also shows reproductive tissues
+cluster by reproductive mode first, whereas foot samples do not. There
+is also a batch effect apparent for the jelly gland samples, as the
+‘jelly gland only’ samples cluster separately from the other jelly gland
+samples. We’ll include a batch term in the model to account for
+this.</p>
+<div id="removing-the-extra-reproductive-tissue-samples"
+class="section level2">
+<h2>Removing the extra reproductive tissue samples</h2>
+<pre class="r"><code># all data minus JG3_oJG
+reduced_dat &lt;- mixeddata %&gt;% select(!contains(&quot;o&quot;)) %&gt;% 
+  rownames_to_column(var = &#39;GeneID&#39;)
+
+# filter data
+# filter &gt; 5 cpm in 3 or more replicates
+Keep.red &lt;- rowSums(cpm(reduced_dat[, -1]) &gt;= 5) &gt;= 3
+
+red.Filtered &lt;- reduced_dat[Keep.dat, ]
+
+
+cts.red &lt;- as.matrix(red.Filtered[, -1])
+rownames(cts.red) &lt;- red.Filtered$GeneID
+#summary(cts)
+
+sampl.red &lt;- sampleInfo %&gt;% filter(!str_detect(samp_info, &quot;o&quot;))
+
+dds.red &lt;- DESeqDataSetFromMatrix(countData = cts.red,
+                                  colData = sampl.red,
+                                  design = ~ tissue + species + tissue:species)
+
+dds.red &lt;- DESeq(dds.red)
+#resultsNames(dds.red)
+
+#vsd &lt;- vst(dds.red, blind = FALSE)
+rld.red &lt;- rlog(dds.red, blind = FALSE)
+
+norm_deseq.red &lt;- assay(rld.red) %&gt;% as.data.frame() %&gt;% 
+  rownames_to_column(var = &#39;GeneID&#39;)
+
+# difference in normalisation
+#pdf(&#39;plots/cpm_vs_normalised.pdf&#39;, height = 4, width = 9)
+par(mfrow = c(1, 2))
+boxplot(cpm(cts.red, log = TRUE), main = &#39;log2(cpm)&#39;)
+boxplot(norm_deseq.red[, -1], main = &#39;normalised counts&#39;)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>par(mfrow = c(1, 1))
+#dev.off()
+
+plotMA(dds.red)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotDispEsts(dds.red)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ntd.red &lt;- normTransform(dds.red)
+meanSdPlot(assay(ntd.red))</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-15-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># # size/normalisation factors
+# data.frame(size.factor = sizeFactors(dds)) %&gt;% 
+#   rownames_to_column()
+
+pcaData.red &lt;- plotPCA(rld.red, returnData = TRUE)
+
+# PCA var explained
+# #sum(attr(pcaData, &quot;percentVar&quot;))
+
+# PCA (top 500 most variable genes)
+pcaData.red %&gt;% 
+  mutate(species = if_else(grepl(&#39;JG&#39;, name), &#39;arc&#39;, &#39;sax&#39;),
+         tissue = if_else(grepl(&#39;FT&#39;, name), &#39;foot&#39;, &#39;repr&#39;)) %&gt;% 
+  ggplot(aes(x = PC1, y = PC2, colour = species)) +
+  geom_point(size = 5, alpha = .75) +
+  labs(x = paste0(&#39;PC1 (&#39;, round(100*attr(pcaData, &quot;percentVar&quot;)[1], 1), &#39;%)&#39;),
+       y = paste0(&#39;PC2 (&#39;, round(100*attr(pcaData, &quot;percentVar&quot;)[2], 1), &#39;%)&#39;))</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-15-5.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="principal-component-analysis-1" class="section level3">
+<h3>Principal component analysis</h3>
+<pre class="r"><code>most_var.red &lt;- norm_deseq.red %&gt;% dplyr::select(-GeneID) %&gt;% 
+  mutate(vars = apply(., 1, var)) %&gt;% 
+  slice_max(vars, n = 500)
+
+pca.red &lt;- prcomp(t(as.matrix(most_var.red[, -13])), center = TRUE, scale. = FALSE)
+#summary(pca.red)
+
+PCA_dat.red &lt;- as.data.frame(pca.red$x)[, 1:3] %&gt;%
+  rownames_to_column() %&gt;%
+  mutate(species = if_else(grepl(&#39;JG&#39;, rowname), &#39;arc&#39;, &#39;sax&#39;),
+         tissue = if_else(grepl(&#39;FT&#39;, rowname), &#39;foot&#39;, &#39;repr&#39;))
+
+# Plot for figure
+PCA_dat.red %&gt;%
+  ggplot(aes(x = PC1, y = PC2, colour = species, shape = tissue)) +
+  geom_point(size = 8, alpha = .7) +
+  labs(x = paste0(&#39;PC1 (&#39;, 100*round(summary(pca.red)$importance[2, 1], 3), &#39;%)&#39;), 
+       y = paste0(&#39;PC2 (&#39;, 100*round(summary(pca.red)$importance[2, 2], 3), &#39;%)&#39;)) +
+  scale_colour_manual(values = sean_col, 
+                      labels = c(expression(italic(&#39;L. arc&#39;)),
+                                 expression(italic(&#39;L. sax&#39;)))) +
+  scale_shape_manual(values = c(16, 18), labels = c(&#39;Foot&#39;, &#39;Reprod.&#39;)) +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.text.align = 0,
+        legend.text = element_text(size = 12),
+        legend.background = element_blank(),
+        axis.text = element_text(size = 10),
+        axis.title = element_text(size = 12)) +
+  #ggsave(&#39;plots/PCA_12.red.pdf&#39;, height = 3.4, width = 4.8, dpi = 600, useDingbats = FALSE) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-16-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>rbind(as.matrix(PCA_dat.red[, c(2, 3)]),
+      as.matrix(PCA_dat.red[, c(2, 4)]),
+      as.matrix(PCA_dat.red[, c(3, 4)])) %&gt;% 
+  bind_cols(species = rep(PCA_dat.red$species, 3),
+            tissue = rep(PCA_dat.red$tissue, 3),
+            pc = rep(c(paste0(&#39;PC1 (&#39;,100*round(summary(pca.red)$importance[2, 1], 3), &#39;%) vs. PC2 (&#39;,
+                              100*round(summary(pca.red)$importance[2, 2], 3), &#39;%)&#39;), 
+                       paste0(&#39;PC1 (&#39;,100*round(summary(pca.red)$importance[2, 1], 3), &#39;%) vs. PC3 (&#39;,
+                              100*round(summary(pca.red)$importance[2, 3], 3), &#39;%)&#39;), 
+                       paste0(&#39;PC2 (&#39;,100*round(summary(pca.red)$importance[2, 2], 3), &#39;%) vs. PC3 (&#39;,
+                              100*round(summary(pca.red)$importance[2, 3], 3), &#39;%)&#39;)), 
+                     each = 12)) %&gt;% 
+  ggplot(aes(x = PC1, y = PC2, colour = species, shape = tissue, alpha = .5)) +
+  geom_point(size = 8, alpha = .7) +
+  scale_colour_manual(values = sean_col, 
+                      labels = c(expression(italic(&#39;L. sax&#39;)),
+                                 expression(italic(&#39;L. arc&#39;)))) +
+  scale_shape_manual(values = c(16, 18), labels = c(&#39;Foot&#39;, &#39;Reprod.&#39;)) +
+  facet_wrap(~pc) +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.text.align = 0,
+        legend.text = element_text(size = 12),
+        legend.background = element_blank(),
+        axis.text = element_text(size = 10),
+        axis.title = element_blank(),
+        strip.text = element_text(size = 15)) +
+  #ggsave(&#39;plots/PCA_12.pdf&#39;, height = 3.4, width = 4.5, dpi = 600, useDingbats = FALSE) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-16-2.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="heatmap-2" class="section level2">
+<h2>heatmap</h2>
+<pre class="r"><code>deseq_scaled.red &lt;- pheatmap:::scale_rows(norm_deseq.red[, -1])
+colnames(deseq_scaled.red) &lt;- colnames(norm_deseq.red[, -1])
+rownames(deseq_scaled.red) &lt;- norm_deseq.red[, 1]
+
+#sampl2 &lt;- sampleInfo %&gt;% filter(!str_detect(samp_info, &quot;o&quot;)) %&gt;% filter(samp_info != &#39;JG3_oJG&#39;)
+top_anno_all.red &lt;- HeatmapAnnotation(species = sampl.red$species,
+                                      tissue = str_sub(colnames(deseq_scaled.red), 1, 2), 
+                                      col = list(species = sean_col,
+                                                 tissue = c(&#39;FT&#39; = v.pal[1], 
+                                                            &#39;BP&#39; = v.pal[2], 
+                                                            &#39;JG&#39; = v.pal[3])))
+
+#pdf(&#39;plots/filtered_scaled_hm.pdf&#39;, height = 8, width = 5)
+Heatmap(na.omit(deseq_scaled.red), 
+        col = viridis::inferno(25),
+        #col = RColorBrewer::brewer.pal(name = &#39;Spectral&#39;, n = 11),
+        heatmap_legend_param = list(title = &quot;log2(CPM + 1)&quot;,
+                                    title_position = &quot;leftcenter-rot&quot;),
+        # left_annotation = left_anno,
+        # right_annotation = right_anno,
+        top_annotation = top_anno_all.red,
+        show_row_names = FALSE,
+        show_row_dend = FALSE,
+        # show_column_names = FALSE, 
+        # column_split = 3,
+        column_gap = unit(0, &quot;mm&quot;),
+        row_title = NULL,
+        column_title = NULL)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()</code></pre>
+</div>
+<div id="differential-expression-1" class="section level2">
+<h2>Differential expression</h2>
+<div id="tissue-differences-1" class="section level3">
+<h3>Tissue differences</h3>
+<p>We test for differential expression between tissues for each species
+separately to find consistently different/species-specific
+differentially expressed genes in foot compared to reproductive tissue.
+We define differentially expressed genes based on a log2-fold-change
+&gt; |2| and FDR corrected p-value &lt; 0.01.</p>
+<pre class="r"><code># foot vs. reprod arcana
+tiss_arc.red &lt;- results(dds.red, tidy = TRUE, name = &#39;tissue_reprod_vs_foot&#39;) %&gt;% as_tibble() %&gt;%
+  mutate(threshold = if_else(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 2, &quot;SD&quot;, &quot;NS&quot;))
+
+# foot vs. reprod sax
+tiss_sax.red &lt;- results(dds.red, tidy = TRUE, list(c(&quot;tissue_reprod_vs_foot&quot;, 
+                                             &quot;tissuereprod.speciessax&quot;))) %&gt;% as_tibble() %&gt;%
+  mutate(threshold = if_else(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 2, &quot;SD&quot;, &quot;NS&quot;))
+
+#table(tiss_arc.red$threshold)
+#table(tiss_sax.red$threshold)
+
+tissue_dat.red &lt;- inner_join(tiss_arc.red,
+                         tiss_sax.red, by = &#39;row&#39;) %&gt;%
+  mutate(sig_a = if_else(abs(log2FoldChange.x) &gt; 2 &amp; padj.x &lt; 0.01, &#39;sig&#39;, &#39;not&#39;),
+         sig_s = if_else(abs(log2FoldChange.y) &gt; 2 &amp; padj.y &lt; 0.01, &#39;sig&#39;, &#39;not&#39;),
+         concordant = if_else(sign(log2FoldChange.x) == sign(log2FoldChange.y), &#39;same&#39;, &#39;diff&#39;)) %&gt;%
+  mutate(category = case_when(sig_a == &#39;sig&#39; &amp; sig_s == &#39;sig&#39; &amp; concordant == &#39;same&#39; ~ &#39;Concordant&#39;,
+                              sig_a == &#39;sig&#39; &amp; sig_s == &#39;sig&#39; &amp; concordant == &#39;diff&#39; ~ &#39;Opposing&#39;,
+                              sig_a == &#39;sig&#39; &amp; sig_s == &#39;not&#39; ~ &#39;L. arc&#39;,
+                              sig_a == &#39;not&#39; &amp; sig_s == &#39;sig&#39; ~ &#39;L. sax&#39;,
+                              TRUE ~ &#39;No bias&#39;))
+
+tissue_dat.red %&gt;% 
+  ggplot(aes(x = log2FoldChange.x, y = log2FoldChange.y)) + 
+  geom_hline(yintercept = c(-2, 2), lty = 2) +
+  geom_vline(xintercept = c(-2, 2), lty = 2) +
+  geom_abline(slope = 1, lty = 2) +
+  geom_point(aes(colour = category), alpha = .75) +
+  geom_smooth(method = &#39;lm&#39;) +
+  scale_colour_viridis_d(labels = c(&#39;Concordant&#39;, expression(italic(&#39;L. sax&#39;)),
+                                    expression(italic(&#39;L. arc&#39;)), &#39;No bias&#39;, &#39;Opposing&#39;)) +
+  labs(x = expression(paste(&#39;log2FC in &#39;, italic(&#39;L. arc&#39;))),
+       y = expression(paste(&#39;log2FC in &#39;, italic(&#39;L. sax&#39;)))) +
+  theme_bw() +
+  theme(legend.position = &#39;bottom&#39;,
+        legend.title = element_blank(),
+        strip.text = element_text(face = &quot;bold&quot;, size = 15),
+        strip.background = element_rect(fill = &quot;grey&quot;),
+        plot.background = element_rect(colour = NA)) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># upset(fromList(list(
+#   arc = tiss_arc.red$row[tiss_arc.red$threshold == &#39;SD&#39;],
+#   sax = tiss_sax.red$row[tiss_sax.red$threshold == &#39;SD&#39;])))</code></pre>
+</div>
+<div id="species-effect-for-foot-1" class="section level3">
+<h3>Species effect for foot</h3>
+<p>Next we test for genes differentially expressed between reproductive
+modes for the foot tissue.</p>
+<pre class="r"><code># main effect - species effect for foot
+foot_diff.red &lt;- results(dds.red, tidy = TRUE, name = &#39;species_sax_vs_arc&#39;) %&gt;% 
+  mutate(threshold = if_else(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 2, &quot;SD&quot;, &quot;NS&quot;))
+
+#table(foot_diff.red$threshold)
+
+# volcano plot
+foot_diff.red %&gt;% 
+  ggplot(aes(x = log2FoldChange, y = -log10(pvalue), colour = threshold)) +
+  geom_point() +
+  theme_bw() +
+  theme(legend.position = &#39;&#39;) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="species-effect-for-reproductive-tissue-1"
+class="section level3">
+<h3>Species effect for reproductive tissue</h3>
+<pre class="r"><code># species effect for reprod tissue - main effect plus interaction - extra species effect in reprod compared to foot
+repr_diff.red &lt;- results(dds.red, tidy = TRUE, list(c(&#39;species_sax_vs_arc&#39;, 
+                                                      &#39;tissuereprod.speciessax&#39;))) %&gt;% 
+  mutate(threshold = if_else(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 2, &quot;SD&quot;, &quot;NS&quot;))
+
+# interaction effect - is species effect different across tissues?
+intr_diff.red &lt;- results(dds.red, tidy = TRUE, name = &#39;tissuereprod.speciessax&#39;) %&gt;% 
+  mutate(threshold = if_else(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 2, &quot;SD&quot;, &quot;NS&quot;))
+
+#table(repr_diff.red$threshold)
+#table(intr_diff.red$threshold)
+
+# combined interaction + reprod difference excluding foot differences
+cd.red &lt;- setdiff(unique(c(intr_diff.red$row[intr_diff.red$threshold == &#39;SD&#39;], 
+                           repr_diff.red$row[repr_diff.red$threshold == &#39;SD&#39;])), 
+                  foot_diff.red$row[foot_diff.red$threshold == &#39;SD&#39;])
+
+length(intr_diff$row[intr_diff$threshold == &#39;SD&#39;])</code></pre>
+<pre>[1] 724
+</pre>
+<pre class="r"><code>intersect(repr_diff$row[repr_diff$threshold == &#39;SD&#39;], foot_diff$row[foot_diff$threshold == &#39;SD&#39;]) %&gt;% length</code></pre>
+<pre>[1] 154
+</pre>
+<pre class="r"><code>setdiff(repr_diff$row[repr_diff$threshold == &#39;SD&#39;], foot_diff$row[foot_diff$threshold == &#39;SD&#39;]) %&gt;% length</code></pre>
+<pre>[1] 1297
+</pre>
+<pre class="r"><code>length(intr_diff.red$row[intr_diff.red$threshold == &#39;SD&#39;])</code></pre>
+<pre>[1] 549
+</pre>
+<pre class="r"><code>intersect(repr_diff.red$row[repr_diff.red$threshold == &#39;SD&#39;], foot_diff.red$row[foot_diff.red$threshold == &#39;SD&#39;]) %&gt;% length</code></pre>
+<pre>[1] 158
+</pre>
+<pre class="r"><code>setdiff(repr_diff.red$row[repr_diff.red$threshold == &#39;SD&#39;], foot_diff.red$row[foot_diff.red$threshold == &#39;SD&#39;]) %&gt;% length</code></pre>
+<pre>[1] 747
+</pre>
+<pre class="r"><code># upset(fromList(list(
+#   foot = foot_diff.red$row[foot_diff.red$threshold == &#39;SD&#39;],
+#   repr = repr_diff.red$row[repr_diff.red$threshold == &#39;SD&#39;],
+#   intr = intr_diff.red$row[intr_diff.red$threshold == &#39;SD&#39;])))
+
+# exclude foot differences
+rep_only.red &lt;- setdiff(repr_diff.red$row[repr_diff.red$threshold == &#39;SD&#39;],
+                        foot_diff.red$row[foot_diff.red$threshold == &#39;SD&#39;])</code></pre>
+</div>
+</div>
+<div id="volcano-plot-1" class="section level2">
+<h2>volcano plot</h2>
+<pre class="r"><code>lab_text &lt;- data.frame(#P.Value = 1, 
+                       log2FoldChange = c(-10, 10),
+                       lab = c(&quot;L. arc&quot;, &#39;L. sax&#39;),
+                       SigDiff = NA)
+
+repr_diff.red %&gt;% 
+  ggplot(aes(x = log2FoldChange, y = -log10(pvalue), colour = threshold)) +
+  geom_point() +
+  theme_bw() +
+  theme(legend.position = &#39;&#39;) + 
+  geom_text(data = lab_text, colour = &#39;black&#39;, hjust = &#39;middle&#39;,
+            aes(y = 0.5, label = paste0(lab)), size = 10, fontface = &quot;italic&quot;) +
+  geom_segment(aes(x = 15, y = 0, xend = 30, yend = 0), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  geom_segment(aes(x = -15, y = 0, xend = -30, yend = 0), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># merge data
+comb_all.red &lt;- inner_join(repr_diff.red,
+                           foot_diff.red,
+                           by = &#39;row&#39;, suffix = c(&#39;.repr&#39;, &#39;.foot&#39;)) %&gt;% 
+  mutate(differ = case_when(threshold.repr == &#39;SD&#39; &amp; threshold.foot == &#39;SD&#39; ~ &#39;both&#39;,
+                            threshold.repr == &#39;SD&#39; &amp; threshold.foot != &#39;SD&#39; ~ &#39;repr&#39;,
+                            threshold.repr != &#39;SD&#39; &amp; threshold.foot == &#39;SD&#39; ~ &#39;foot&#39;,
+                            TRUE ~ &#39;none&#39;),
+         tissue_diff = case_when(row %in% intersect(tiss_arc.red$row[tiss_arc.red$threshold == &#39;SD&#39;],
+                                                    tiss_sax.red$row[tiss_sax.red$threshold == &#39;SD&#39;]) ~ &#39;both&#39;,
+                                 row %in% tiss_arc.red$row[tiss_arc.red$threshold == &#39;SD&#39;] ~ &#39;arc&#39;,
+                                 row %in% tiss_sax.red$row[tiss_sax.red$threshold == &#39;SD&#39;] ~ &#39;sax&#39;),
+         # #sig_diff = if_else(row %in% cd, &#39;sd&#39;, &#39;ns&#39;),
+         # int_diff = if_else(row %in% intr_diff$row[intr_diff$threshold == &#39;SD&#39;], &#39;sd&#39;, &#39;ns&#39;),
+         # rep_diff = if_else(row %in% repr_diff$row[repr_diff$threshold == &#39;SD&#39;], &#39;sd&#39;, &#39;ns&#39;),
+         # i2 = case_when(row %in% foot_diff$row[foot_diff$threshold == &#39;SD&#39;] ~ &#39;foot&#39;,
+         #                row %in% repr_diff$row[repr_diff$threshold == &#39;SD&#39;] ~ &#39;repr&#39;,
+         #                row %in% intr_diff$row[intr_diff$threshold == &#39;SD&#39;] ~ &#39;intr&#39;,
+         #                TRUE ~ &#39;ns&#39;)
+         )
+
+# number of differentially expressed genes in reproductive system found higher in each species
+comb_all.red %&gt;% filter(differ == &#39;repr&#39;) %&gt;% 
+  mutate(up_in = if_else(log2FoldChange.repr &gt; 2, &quot;sax&quot;, &quot;arc&quot;)) %&gt;% 
+  dplyr::count(up_in) %&gt;% 
+  mutate(prop.n = n/sum(n))</code></pre>
+<pre>  up_in   n    prop.n
+1   arc 380 0.5087015
+2   sax 367 0.4912985
+</pre>
+<pre class="r"><code>table(comb_all.red$differ)</code></pre>
+<pre>
+ both  foot  none  repr 
+  157   140 12901   747 
+</pre>
+<pre class="r"><code>table(comb_all.red$int_diff)</code></pre>
+<pre>< table of extent 0 >
+</pre>
+<pre class="r"><code>table(comb_all.red$i2)</code></pre>
+<pre>< table of extent 0 >
+</pre>
+<pre class="r"><code># ## check overlap with original analysis.
+# #rep_only
+
+upset(fromList(list(
+  old = rep_only,
+  new = rep_only.red)))</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lab_text.cor &lt;- data.frame(log2FoldChange.repr = c(-25, 25),
+                           log2FoldChange.foot = c(-25, 25),
+                           lab = c(&quot;L. arc&quot;, &#39;L. sax&#39;),
+                           SigDiff = NA)
+
+# correlation
+comb_all.red %&gt;% filter(differ == &#39;none&#39;) %&gt;% 
+  ggplot(aes(x = log2FoldChange.repr, y = log2FoldChange.foot)) + 
+  geom_hline(yintercept = c(-2, 2), lty = 2) +
+  geom_vline(xintercept = c(-2, 2), lty = 2) +
+  geom_point(size = 0.5, alpha = .25) +
+  geom_point(data = comb_all %&gt;% filter(differ != &#39;none&#39;),
+             aes(colour = differ),
+             alpha = .5) +
+  scale_colour_manual(values = MetBrewer::met.brewer(&#39;Hiroshige&#39;)[c(1, 4, 10)]) +
+  theme_bw() +
+  #theme(legend.position = &#39;&#39;) +
+  geom_text(data = lab_text.cor, colour = &#39;black&#39;, hjust = &#39;middle&#39;,
+            aes(y = -28, label = paste0(lab)), size = 5, fontface = &quot;italic&quot;) +
+  # x axis arrows
+  geom_segment(aes(x = 15, y = -30, xend = 30, yend = -30), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  geom_segment(aes(x = -15, y = -30, xend = -30, yend = -30), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  # y axis arrows
+  geom_segment(aes(x = -30, y = 15, xend = -30, yend = 30), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  geom_segment(aes(x = -30, y = -15, xend = -30, yend = -30), colour = &#39;black&#39;,
+               arrow = arrow(length = unit(0.5, &quot;cm&quot;))) +
+  geom_text(data = lab_text.cor, colour = &#39;black&#39;, hjust = &#39;middle&#39;,
+            aes(x = -28, label = paste0(lab)), size = 5, angle = 90, fontface = &quot;italic&quot;) +
+  #ggsave(&#39;plots/DA_cor.pdf&#39;, height = 3.4, width = 4.8, dpi = 600, useDingbats = FALSE) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># counts
+comb_all %&gt;%
+  group_by(differ) %&gt;% dplyr::count() %&gt;% filter(differ != &#39;none&#39;)</code></pre>
+<pre># A tibble: 3 × 2
+# Groups:   differ [3]
+  differ     n
+  <chr>  <int>
+1 both     153
+2 foot     148
+3 repr    1297
+</pre>
+<pre class="r"><code>comb_all.red %&gt;%
+  group_by(differ) %&gt;% dplyr::count() %&gt;% filter(differ != &#39;none&#39;)</code></pre>
+<pre># A tibble: 3 × 2
+# Groups:   differ [3]
+  differ     n
+  <chr>  <int>
+1 both     157
+2 foot     140
+3 repr     747
+</pre>
+<pre class="r"><code>comb_all.red %&gt;% 
+  mutate(up_in = if_else(log2FoldChange.repr &gt; 2, &#39;sax&#39;, &#39;arc&#39;)) %&gt;% 
+  group_by(differ, up_in) %&gt;% dplyr::count() %&gt;% filter(differ != &#39;none&#39;) %&gt;% 
+  ggplot(aes(x = up_in, y = n, fill = differ)) +
+  geom_col() +
+  scale_fill_manual(values = MetBrewer::met.brewer(&#39;Hiroshige&#39;)[c(1, 4, 10)]) +
+  theme_bw() +
+  theme(legend.position = &#39;&#39;) +
+  #ggsave(&#39;plots/DA_numbers.red.jpg&#39;, height = 4, width = 4, dpi = 600) +
+  #ggsave(&#39;plots/DA_numbers.red.pdf&#39;, height = 4, width = 4, dpi = 600, useDingbats = FALSE) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># comparing old to new results
+upset(fromList(list(
+  old = repr_diff$row[repr_diff$threshold == &#39;SD&#39;],
+  new = repr_diff.red$row[repr_diff.red$threshold == &#39;SD&#39;])))</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>upset(fromList(list(
+  old = foot_diff$row[foot_diff$threshold == &#39;SD&#39;],
+  new = foot_diff.red$row[foot_diff.red$threshold == &#39;SD&#39;])))</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>left_join(comb_all, comb_all.red, by = &quot;row&quot;) %&gt;% 
+  ggplot(aes(x = log2FoldChange.repr.x, y = log2FoldChange.repr.y)) +
+  geom_point()</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>comb_all %&gt;% select(row, contains(&quot;baseMean&quot;), contains(&quot;log2&quot;), contains(&quot;threshold&quot;), differ) %&gt;% 
+  pivot_longer(2:3) %&gt;% 
+  ggplot(aes(x = name, y = log2(value), colour = threshold.foot)) +
+  geom_boxplot(notch = TRUE)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-8.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>difdat &lt;- left_join(repr_diff, repr_diff.red, by = &quot;row&quot;) %&gt;% 
+  mutate(thres.dif = case_when(threshold.x == threshold.y ~ &quot;same&quot;,
+                               threshold.x == &quot;SD&quot; &amp; threshold.y != &quot;SD&quot; ~ &quot;SDold&quot;,
+                               threshold.x != &quot;SD&quot; &amp; threshold.y == &quot;SD&quot; ~ &quot;SDnew&quot;,
+                               threshold.x == &quot;SD&quot; &amp; threshold.y == &quot;NS&quot; ~ &quot;SDold&quot;,
+                               threshold.x == &quot;NS&quot; &amp; threshold.y == &quot;SD&quot; ~ &quot;SDnew&quot;))
+
+
+difdat %&gt;% 
+  ggplot(aes(x = log2FoldChange.x, y = log2FoldChange.y, colour = thres.dif)) +
+  geom_hline(yintercept = c(-2, 2), lty = 2) +
+  geom_vline(xintercept = c(-2, 2), lty = 2) +
+  geom_abline(slope = 1, lty = 2) +
+  geom_point() +
+  labs(x = &quot;log2FC sax - arc (old)&quot;, y = &quot;log2FC sax - arc (new)&quot;) +
+  #ggsave(&#39;plots/DA_cor.jpg&#39;, height = 4, width = 5, dpi = 600) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>difdat %&gt;% drop_na(thres.dif) %&gt;% 
+  filter(thres.dif != &quot;same&quot;) %&gt;% 
+  ggplot(aes(x = log2(baseMean.y), y = log2FoldChange.y, colour = thres.dif)) +
+  geom_point(data = difdat %&gt;% filter(thres.dif == &quot;same&quot;), alpha = .5, colour = &quot;grey&quot;) +
+  geom_point(alpha = .5) +
+  scale_colour_manual(values = c(&quot;red&quot;, &quot;blue&quot;)) +
+  #ggsave(&#39;plots/MA_new.jpg&#39;, height = 4, width = 5, dpi = 600) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-10.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>difdat %&gt;% drop_na(thres.dif) %&gt;% 
+  filter(thres.dif != &quot;same&quot;) %&gt;% 
+  ggplot(aes(x = log2(baseMean.x), y = log2FoldChange.x, colour = thres.dif)) +
+  geom_point(data = difdat %&gt;% filter(thres.dif == &quot;same&quot;), alpha = .5, colour = &quot;grey&quot;) +
+  geom_point(alpha = .5) +
+  scale_colour_manual(values = c(&quot;red&quot;, &quot;blue&quot;)) +
+  #ggsave(&#39;plots/MA_old.jpg&#39;, height = 4, width = 5, dpi = 600) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-11.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>difdat %&gt;% #drop_na(thres.dif) %&gt;% 
+  #filter(thres.dif != &quot;same&quot;) %&gt;% 
+  ggplot(aes(x = log2(baseMean.x), y = log2(baseMean.y), colour = thres.dif)) +
+  #geom_point(data = difdat %&gt;% filter(thres.dif == &quot;same&quot;), alpha = .5, colour = &quot;grey&quot;) +
+  geom_point(alpha = .5) +
+  geom_abline(slope = 1, lty = 2) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-21-12.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="deg-tr-associations" class="section level1">
+<h1>DEG Tr associations</h1>
+<pre class="r"><code># sean_positions &lt;- read.csv(&#39;data/reproductive_mode_TWISST.popGenwins.csv&#39;)
+# str(sean_positions)
+# summary(sean_positions)
+# 
+# library(ape)
+# 
+# littorina_gff &lt;- read.gff(&#39;data/Littorina_scaffolded_PacBio_run2_7_Oct_2016_unmasked_maker.gff&#39;, 
+#                           GFF3 = FALSE) %&gt;% 
+#   filter(feature == &#39;gene&#39;) %&gt;% 
+#   dplyr::rename(gene_start = start, gene_end = end)
+# 
+# head(littorina_gff)
+# str(littorina_gff)
+# summary(littorina_gff)
+# 
+# littorina_gff$gene_id &lt;- gsub(&#39;ID=&#39;, &#39;&#39;, x = str_split(littorina_gff$attributes, pattern = &#39;;&#39;) %&gt;% map_chr(c(1)))
+# 
+# # gene lengths
+# littorina_gff %&gt;% 
+#   mutate(gene_length = gene_end - gene_start) %&gt;% #summary
+#   ggplot(aes(x = gene_length)) + 
+#   geom_histogram()
+# 
+# library(data.table)
+# 
+# setDT(sean_positions)
+# setDT(littorina_gff)
+# 
+# # comb_pos &lt;- nov_snps[gene_positions_nov, 
+# #                            on = .(position &gt;= m_start, position &lt;= m_end, # indicate x range
+# #                                   contig = seqname), # indicate y range
+# #                            nomatch = NA, 
+# #                            .(m_start, m_end, m_length, gene, ID, product, SNP_id), 
+# #                            allow.cartesian = TRUE]
+# 
+# # comb_pos &lt;- sean_positions[gtf_BP1_oBP, 
+# #                            on = .(mid &gt;= V4, mid &lt;= V5, # indicate x range
+# #                                   scaffold = V1), # indicate y range
+# #                            nomatch = NA, 
+# #                            .(V4, V5, mid, scaffold, V1, gene_id, transcript_id), 
+# #                            allow.cartesian = TRUE]
+# # #write_csv(comb_pos, &#39;output/BP1_oBP.positions.csv&#39;)
+# 
+# dt_final_data &lt;- setDT(df2)[df1, 
+#                             .(ID, f_date, ACCNUM, flmNUM, start_date, end_date, x.date, fyear, at, lt), 
+#                             on = .(ID, date &gt; start_date, date &lt;= end_date)]
+# 
+# comb_pos &lt;- sean_positions[littorina_gff, 
+#                             .(gene_id, seqname, gene_start, gene_end,
+#                               output_order, scaffold, start, end, mid), 
+#                             on = .(scaffold = seqname, mid &gt;= gene_start, mid &lt;= gene_end)
+#                            #nomatch = NULL
+#                            ]
+# 
+# 
+# # comb_pos &lt;- sean_positions[littorina_gff, 
+# #                            on = .(mid &gt;= gene_start, mid &lt;= gene_end, # indicate x range
+# #                                   scaffold = seqname), # indicate y range
+# #                            nomatch = NA, 
+# #                            .(seqname, gene_start, gene_end, gene_id, 
+# #                              output_order, scaffold, start, end, mid), 
+# #                            allow.cartesian = TRUE]
+# 
+# str(comb_pos)
+# head(comb_pos)
+# 
+# comb_pos[which(is.na(comb_pos$output_order) == TRUE), ] %&gt;% dim
+# 
+# dim(comb_pos)
+# n_distinct(comb_pos$gene_id)
+# 
+# comb_pos[which(duplicated(comb_pos$gene_id) == TRUE), ]
+# 
+# # #write_csv(comb_pos, &#39;output/gff.positions.csv&#39;)
+# 
+# comb_pos %&gt;% 
+#   left_join(read.csv(&#39;data/contig_LG_inversion.csv&#39;), by = c(&#39;scaffold&#39; = &#39;contig&#39;))
+# 
+# left_join(comb_all.red,
+#           comb_pos,
+#           by = c(&#39;row&#39; = &#39;gene_id&#39;)) %&gt;% write_csv(&#39;output/deseq_results_foot_reprod.REDUCED.csv&#39;)
+# 
+# left_join(comb_all.red,
+#           comb_pos,
+#           by = c(&#39;row&#39; = &#39;gene_id&#39;)) %&gt;% #write_csv(&#39;output/deseq_results_foot_reprod.csv&#39;)
+#   drop_na(output_order) %&gt;% group_by(output_order) %&gt;% dplyr::count() %&gt;% filter(n &gt; 1)
+#   distinct(row, .keep_all = TRUE) %&gt;% 
+#   filter(differ == &#39;repr&#39;) %&gt;% 
+#   left_join(read.csv(&#39;data/contig_LG_inversion.csv&#39;), by = c(&#39;scaffold&#39; = &#39;contig&#39;)) %&gt;% 
+#   #group_by(LG) %&gt;% dplyr::count()
+#   #drop_na(LG) %&gt;% 
+#   ggplot(aes(x = factor(LG), y = abs(log2FoldChange.repr))) + 
+#   geom_jitter(width = .25, alpha = .5)</code></pre>
+</div>
+<div id="heatmap---all-genes-1" class="section level1">
+<h1>Heatmap - all genes</h1>
+<p>This heatmap shows the expression of all 13945 used in the analysis,
+highlighting differentially expressed genes between reproductive tissue
+and foot tissue on the left annotation and differentially expressed
+genes between reproductive modes on the right hand side.</p>
+<pre class="r"><code>anno_dat.red &lt;- deseq_scaled.red %&gt;% as.data.frame() %&gt;% 
+  rownames_to_column() %&gt;% 
+  left_join(comb_all.red, by = c(&#39;rowname&#39; = &#39;row&#39;))
+
+top_anno_all.red &lt;- HeatmapAnnotation(species = sampl.red$species,
+                                      tissue = str_sub(colnames(norm_deseq.red)[-1], 1, 2), 
+                                      col = list(species = sean_col,
+                                                 tissue = c(&#39;FT&#39; = v.pal[1], 
+                                                            &#39;BP&#39; = v.pal[2], 
+                                                            &#39;JG&#39; = v.pal[3])))
+
+left_anno.red &lt;- rowAnnotation(tiss = anno_dat.red$tissue_diff,
+                               col = list(tiss = c(arc = &#39;blue&#39;,
+                                                   sax = &#39;red&#39;,
+                                                   both = &#39;purple&#39;)),
+                               na_col = NA,
+                               title = NULL,
+                               show_annotation_name = FALSE)
+
+right_anno.red &lt;- rowAnnotation(DE = anno_dat.red$differ,
+                                col = list(DE = c(none = NA,
+                                                  repr = MetBrewer::met.brewer(&#39;Hiroshige&#39;)[10],
+                                                  foot = MetBrewer::met.brewer(&#39;Hiroshige&#39;)[4],
+                                                  both = MetBrewer::met.brewer(&#39;Hiroshige&#39;)[1])),
+                                title = NULL,
+                                show_annotation_name = FALSE)
+
+
+column_dend = as.dendrogram(hclust(dist(t(deseq_scaled.red))))
+plot(column_dend)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>colnames(deseq_scaled.red)</code></pre>
+<pre> [1] "BP1_BPF" "BP2_BPF" "BP3_BPF" "FT1_BPF" "FT1_JGF" "FT2_BPF" "FT2_JGF"
+ [8] "FT3_BPF" "FT3_JGF" "JG1_JGF" "JG2_JGF" "JG3_JGF"
+</pre>
+<pre class="r"><code>#pdf(&#39;plots/DEG_all_genes_reduced.pdf&#39;, height = 8, width = 5)
+Heatmap(na.omit(deseq_scaled.red),
+        col = viridis::inferno(25),
+        heatmap_legend_param = list(title = &quot;log2(CPM + 1)&quot;,
+                                    direction = &quot;horizontal&quot;),
+        #left_annotation = left_anno.red,
+        #right_annotation = right_anno.red,
+        top_annotation = top_anno_all.red,
+        show_row_names = FALSE,
+        show_row_dend = FALSE,
+        show_column_names = FALSE,
+        #cluster_columns = rotate(column_dend),
+        # column_split = 3,
+        #row_split = 2,
+        column_gap = unit(0, &quot;mm&quot;),
+        row_title = NULL,
+        column_title = NULL)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()</code></pre>
+</div>
+<div id="heatmap---differentially-expressed-genes-only-1"
+class="section level1">
+<h1>Heatmap - differentially expressed genes only</h1>
+<pre class="r"><code>diff.mat.red &lt;- anno_dat.red %&gt;% 
+  filter(differ != &#39;none&#39;, !rowname %in% c(&quot;Lsa_00038796&quot;, &quot;Lsa_00002870&quot;, &quot;Lsa_00010713&quot;)) %&gt;% 
+  #dplyr::select(starts_with(&#39;BP&#39;), starts_with(&#39;JG&#39;)) %&gt;% 
+  dplyr::select(BP1_BPF:JG3_JGF) %&gt;% 
+  as.matrix()
+
+col.info.red &lt;- data.frame(coln = colnames(diff.mat.red)) %&gt;% 
+  mutate(condition = case_when(grepl(&#39;^BP&#39;, x = coln) ~ &#39;REP_sax&#39;,
+                               grepl(&#39;^JG&#39;, x = coln) ~ &#39;REP_arc&#39;,
+                               grepl(&#39;^FT.*JGF$&#39;, x = coln) ~ &#39;FT_arc&#39;,
+                               grepl(&#39;^FT.*BPF$&#39;, x = coln) ~ &#39;FT_sax&#39;), 
+         species = if_else(grepl(&#39;BP&#39;, coln), &#39;sax&#39;, &#39;arc&#39;), 
+         tissue = if_else(grepl(&#39;FT&#39;, coln), &#39;foot&#39;, &#39;reprod&#39;),
+         Replicate = str_sub(coln, 3, 3))
+
+top_anno_de.red &lt;- HeatmapAnnotation(species = col.info.red$species,
+                                     tissue = col.info.red$tissue, 
+                                     col = list(species = sean_col,
+                                                tissue = c(&#39;foot&#39; = v.pal[1], 
+                                                           #&#39;BP&#39; = v.pal[2], 
+                                                           &#39;reprod&#39; = v.pal[3])))
+
+#pdf(&#39;plots/DEG_only_reduced.pdf&#39;, height = 8, width = 5)
+Heatmap(diff.mat.red, 
+        col = viridis::inferno(25),
+        heatmap_legend_param = list(title = &quot;log2(CPM + 1)&quot;,
+                                    direction = &quot;horizontal&quot;),
+        top_annotation = top_anno_de.red,
+        show_row_names = FALSE,
+        show_row_dend = FALSE,
+        show_column_names = FALSE,
+        # column_split = 3,
+        column_gap = unit(0, &quot;mm&quot;),
+        row_title = NULL,
+        column_title = NULL)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()
+
+#hist(as.matrix(anno_dat %&gt;% filter(differ == &#39;repr&#39;) %&gt;% dplyr::select(starts_with(&#39;BP&#39;), starts_with(&#39;JG&#39;))))</code></pre>
+<div id="look-at-expression-in-each-tissue" class="section level3">
+<h3>Look at expression in each tissue</h3>
+<pre class="r"><code>raw_vals_long &lt;- all.Filtered %&gt;% #as_tibble() %&gt;% 
+  pivot_longer(2:22) %&gt;% 
+  mutate(condition = case_when(grepl(&#39;^BP&#39;, x = name) ~ &#39;REP_sax&#39;,
+                               grepl(&#39;^JG&#39;, x = name) ~ &#39;REP_arc&#39;,
+                               grepl(&#39;^FT.*JGF$&#39;, x = name) ~ &#39;FT_arc&#39;,
+                               grepl(&#39;^FT.*BPF$&#39;, x = name) ~ &#39;FT_sax&#39;), 
+         species = if_else(grepl(&#39;BP&#39;, name), &#39;sax&#39;, &#39;arc&#39;), 
+         tissue = if_else(grepl(&#39;FT&#39;, name), &#39;foot&#39;, &#39;reprod&#39;),
+         reprod_only = if_else(grepl(&#39;o&#39;, name), &#39;yes&#39;, &#39;no&#39;),
+         Replicate = str_sub(name, 3, 3))
+
+raw_vals_long %&gt;% filter(value &gt; 0) %&gt;% 
+  ggplot(aes(x = log2(value))) +
+  geom_density(aes(fill = tissue, colour = tissue), alpha = .5) + 
+  facet_wrap(~ species) +
+  #ggsave(&#39;plots/tissue_expression.jpg&#39;, height = 3.4, width = 8, dpi = 600) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>raw_vals_long %&gt;% 
+  ggplot(aes(x = tissue, y = log2(value + 1), fill = species)) +
+  geom_boxplot()</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>raw_vals_long %&gt;% 
+  group_by(species, tissue, Replicate) %&gt;% 
+  summarise(mn = mean(value)) %&gt;% 
+  ggplot(aes(x = tissue, y = mn, fill = species)) +
+  geom_boxplot() +
+  geom_jitter(aes(colour = species))</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-25-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># total number of genes expressed in each tissue
+raw_vals_long %&gt;% filter(value &gt; 0) %&gt;% 
+  group_by(name) %&gt;% 
+  dplyr::count() %&gt;% 
+  mutate(condition = case_when(grepl(&#39;^BP&#39;, x = name) ~ &#39;REP_sax&#39;,
+                               grepl(&#39;^JG&#39;, x = name) ~ &#39;REP_arc&#39;,
+                               grepl(&#39;^FT.*JGF$&#39;, x = name) ~ &#39;FT_arc&#39;,
+                               grepl(&#39;^FT.*BPF$&#39;, x = name) ~ &#39;FT_sax&#39;), 
+         species = if_else(grepl(&#39;BP&#39;, name), &#39;sax&#39;, &#39;arc&#39;), 
+         tissue = if_else(grepl(&#39;FT&#39;, name), &#39;foot&#39;, &#39;reprod&#39;),
+         reprod_only = if_else(grepl(&#39;o&#39;, name), &#39;yes&#39;, &#39;no&#39;),
+         Replicate = str_sub(name, 3, 3)) %&gt;% 
+  ggplot(aes(x = species, y = n, fill = tissue)) +
+  geom_boxplot() +
+  geom_point(aes(fill = tissue), size = 3, pch = 21,
+             position = position_dodge(width = .75)) +
+  labs(y = &quot;no. genes expressed&quot;) +
+  #ggsave(&#39;plots/gene_counts.jpg&#39;, height = 3.4, width = 4.8, dpi = 600) +
+  NULL</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-25-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>long_norm.red &lt;- norm_deseq.red %&gt;% 
+  pivot_longer(2:13) %&gt;% 
+  mutate(species = str_sub(name, 5, 6),
+         tissue = str_sub(name, 1, 2),
+         tissue = case_when(grepl(&quot;BP&quot;, x = tissue) ~ &quot;reprod&quot;,
+                            grepl(&quot;JG&quot;, x = tissue) ~ &quot;reprod&quot;,
+                            TRUE ~ tissue))
+
+long_norm.red %&gt;% 
+  ggplot(aes(x = value)) +
+  geom_density(aes(fill = tissue, colour = species), alpha = .5)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-25-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cpm(cts, log = TRUE) %&gt;% as_tibble() %&gt;% 
+  pivot_longer(1:12) %&gt;% 
+  mutate(species = str_sub(name, 5, 6),
+         tissue = str_sub(name, 1, 2),
+         tissue = case_when(grepl(&quot;BP&quot;, x = tissue) ~ &quot;sax&quot;,
+                            grepl(&quot;JG&quot;, x = tissue) ~ &quot;sax&quot;,
+                            TRUE ~ tissue)) %&gt;% 
+  ggplot(aes(x = value)) +
+  geom_density(aes(fill = species, colour = species), alpha = .5) + 
+  facet_wrap(~ tissue)</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-25-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cpm(cts, log = TRUE) %&gt;% as_tibble() %&gt;% 
+  pivot_longer(1:12) %&gt;% 
+  mutate(condition = case_when(grepl(&#39;^BP&#39;, x = name) ~ &#39;REP_sax&#39;,
+                               grepl(&#39;^JG&#39;, x = name) ~ &#39;REP_arc&#39;,
+                               grepl(&#39;^FT.*JGF$&#39;, x = name) ~ &#39;FT_arc&#39;,
+                               grepl(&#39;^FT.*BPF$&#39;, x = name) ~ &#39;FT_sax&#39;), 
+         species = if_else(grepl(&#39;BP&#39;, name), &#39;sax&#39;, &#39;arc&#39;), 
+         tissue = if_else(grepl(&#39;FT&#39;, name), &#39;foot&#39;, &#39;reprod&#39;),
+         reprod_only = if_else(grepl(&#39;o&#39;, name), &#39;yes&#39;, &#39;no&#39;),
+         Replicate = str_sub(name, 3, 3)) %&gt;% 
+  ggplot(aes(x = tissue, y = value, colour = species)) +
+  geom_boxplot()</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-25-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>sizeFactors(dds) %&gt;% as.data.frame() %&gt;% rownames_to_column() %&gt;% 
+  mutate(condition = case_when(grepl(&#39;^BP&#39;, x = rowname) ~ &#39;REP_sax&#39;,
+                               grepl(&#39;^JG&#39;, x = rowname) ~ &#39;REP_arc&#39;,
+                               grepl(&#39;^FT.*JGF$&#39;, x = rowname) ~ &#39;FT_arc&#39;,
+                               grepl(&#39;^FT.*BPF$&#39;, x = rowname) ~ &#39;FT_sax&#39;), 
+         species = if_else(grepl(&#39;BP&#39;, rowname), &#39;sax&#39;, &#39;arc&#39;), 
+         tissue = if_else(grepl(&#39;FT&#39;, rowname), &#39;foot&#39;, &#39;reprod&#39;),
+         reprod_only = if_else(grepl(&#39;o&#39;, rowname), &#39;yes&#39;, &#39;no&#39;),
+         Replicate = str_sub(rowname, 3, 3)) %&gt;% 
+  ggplot(aes(x = species, y = ., fill = tissue)) +
+  geom_boxplot() +
+  geom_point(aes(colour = tissue))</code></pre>
+<p><img src="figure/Littorina_DEseq2.Rmd/unnamed-chunk-25-8.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>normLibSizes(dds)</code></pre>
+<pre>An object of class "DGEList"
+$counts
+             BP1_BPF BP1_oBP BP2_BPF BP2_oBP BP3_BPF BP3_oBP BP4_oBP BP5_oBP
+Lsa_00049398     143      91      75      91     127     157     121     107
+Lsa_00010393     143      88      83     205      87     154     183     117
+Lsa_00049989     238      65      81     147     150     387     126     312
+Lsa_00004513     425     177     251     305     513     201     310     235
+Lsa_00004517      69      39      66      47      84      57     135     170
+             FT1_BPF FT1_JGF FT2_BPF FT2_JGF FT3_BPF FT3_JGF JG1_JGF JG1_oJG
+Lsa_00049398      39     111     131     161      72     122      41     414
+Lsa_00010393      85     103      79     124      82      32      43     238
+Lsa_00049989       0       0       0       0       0       0       0       0
+Lsa_00004513     338     925     366    1158     670     317     129     192
+Lsa_00004517      38     146      33     200      89      61      43     122
+             JG2_JGF JG2_oJG JG3_JGF JG4_oJG JG5_oJG
+Lsa_00049398      96      81     103     246      82
+Lsa_00010393      90      92     127     160      74
+Lsa_00049989       0       0       0       0       0
+Lsa_00004513     380      87     321     148      84
+Lsa_00004517     100      59     158     141      75
+13940 more rows ...
+
+$samples
+        group lib.size norm.factors samp_info condition species tissue
+BP1_BPF     1 23432038    1.3127639   BP1_BPF   REP_sax     sax reprod
+BP1_oBP     1 32144948    0.7311368   BP1_oBP   REP_sax     sax reprod
+BP2_BPF     1 22788083    1.1593923   BP2_BPF   REP_sax     sax reprod
+BP2_oBP     1 27031030    1.0419780   BP2_oBP   REP_sax     sax reprod
+BP3_BPF     1 26562841    1.5131899   BP3_BPF   REP_sax     sax reprod
+        reprod_only Replicate sizeFactor
+BP1_BPF          no         1   1.226986
+BP1_oBP         yes         1   0.938783
+BP2_BPF          no         2   1.017463
+BP2_oBP         yes         2   1.113637
+BP3_BPF          no         3   1.603377
+16 more rows ...
+
+$genes
+              baseMean   baseVar allZero dispGeneEst dispGeneIter   dispFit
+Lsa_00049398 126.55056  7380.693   FALSE  0.13398263            9 0.4354703
+Lsa_00010393 116.08382  3391.422   FALSE  0.04566646           10 0.4608231
+Lsa_00049989  64.91211 12154.696   FALSE  0.54066317            6 0.7024706
+Lsa_00004513 300.64836 11614.657   FALSE  0.04093024            8 0.2726456
+Lsa_00004517  92.01310  2538.146   FALSE  0.12926208            8 0.5410126
+             dispersion dispIter dispOutlier    dispMAP Intercept
+Lsa_00049398 0.15553372        7       FALSE 0.15553372  6.440508
+Lsa_00010393 0.06726309        9       FALSE 0.06726309  5.617424
+Lsa_00049989 0.59122027        9       FALSE 0.59122027 -3.093274
+Lsa_00004513 0.05148092        9       FALSE 0.05148092  8.823802
+Lsa_00004517 0.15644504       10       FALSE 0.15644504  6.283631
+             reprod_only_yes_vs_no tissue_reprod_vs_foot species_sax_vs_arc
+Lsa_00049398             0.7787720             0.6471180         -0.4571439
+Lsa_00010393             0.8011270             1.2296130          0.4347726
+Lsa_00049989             0.6213760             0.8887870          0.3255008
+Lsa_00004513            -0.6437650            -0.4652128         -0.3615491
+Lsa_00004517             0.4143983             0.6192212         -0.9433850
+             tissuereprod.speciessax SE_Intercept SE_reprod_only_yes_vs_no
+Lsa_00049398             -0.45195917    0.3367040                0.3093581
+Lsa_00010393             -0.94719658    0.2369381                0.2112064
+Lsa_00049989              8.86555943    1.3407968                0.7398702
+Lsa_00004513              0.39135884    0.1917478                0.1801237
+Lsa_00004517             -0.04217583    0.3385622                0.3126447
+             SE_tissue_reprod_vs_foot SE_species_sax_vs_arc
+Lsa_00049398                0.4404027             0.4797418
+Lsa_00010393                0.3071030             0.3335365
+Lsa_00049989                1.6573882             1.8961696
+Lsa_00004513                0.2529678             0.2721725
+Lsa_00004517                0.4433821             0.4868344
+             SE_tissuereprod.speciessax WaldStatistic_Intercept
+Lsa_00049398                  0.5675016               19.128100
+Lsa_00010393                  0.3923442               23.708401
+Lsa_00049989                  2.1266731               -2.307042
+Lsa_00004513                  0.3252244               46.017749
+Lsa_00004517                  0.5754006               18.559754
+             WaldStatistic_reprod_only_yes_vs_no
+Lsa_00049398                           2.5173806
+Lsa_00010393                           3.7930996
+Lsa_00049989                           0.8398446
+Lsa_00004513                          -3.5740170
+Lsa_00004517                           1.3254607
+             WaldStatistic_tissue_reprod_vs_foot
+Lsa_00049398                           1.4693779
+Lsa_00010393                           4.0039101
+Lsa_00049989                           0.5362576
+Lsa_00004513                          -1.8390194
+Lsa_00004517                           1.3965860
+             WaldStatistic_species_sax_vs_arc
+Lsa_00049398                       -0.9528957
+Lsa_00010393                        1.3035231
+Lsa_00049989                        0.1716623
+Lsa_00004513                       -1.3283820
+Lsa_00004517                       -1.9377943
+             WaldStatistic_tissuereprod.speciessax WaldPvalue_Intercept
+Lsa_00049398                            -0.7964016         1.473487e-81
+Lsa_00010393                            -2.4141981        2.953578e-124
+Lsa_00049989                             4.1687457         2.105248e-02
+Lsa_00004513                             1.2033500         0.000000e+00
+Lsa_00004517                            -0.0732982         6.801552e-77
+             WaldPvalue_reprod_only_yes_vs_no WaldPvalue_tissue_reprod_vs_foot
+Lsa_00049398                     0.0118231046                     1.417303e-01
+Lsa_00010393                     0.0001487785                     6.230404e-05
+Lsa_00049989                     0.4009955494                     5.917806e-01
+Lsa_00004513                     0.0003515461                     6.591233e-02
+Lsa_00004517                     0.1850183964                     1.625381e-01
+             WaldPvalue_species_sax_vs_arc WaldPvalue_tissuereprod.speciessax
+Lsa_00049398                    0.34064291                       4.257987e-01
+Lsa_00010393                    0.19239623                       1.576989e-02
+Lsa_00049989                    0.86370302                       3.062805e-05
+Lsa_00004513                    0.18405196                       2.288409e-01
+Lsa_00004517                    0.05264832                       9.415688e-01
+             betaConv betaIter deviance  maxCooks
+Lsa_00049398     TRUE        4 212.3442 0.1262187
+Lsa_00010393     TRUE        3 191.6332 0.1364274
+Lsa_00049989     TRUE        5 101.7983 0.0165176
+Lsa_00004513     TRUE        3 228.0883 0.2991039
+Lsa_00004517     TRUE        4 199.8226 0.3266012
+13940 more rows ...
+</pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1345,82 +3015,78 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre>R version 4.2.2 (2022-10-31)
+<pre>R version 4.3.1 (2023-06-16)
 Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Ventura 13.2
+Running under: macOS Sonoma 14.0
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Europe/Berlin
+tzcode source: internal
 
 attached base packages:
 [1] grid      stats4    stats     graphics  grDevices utils     datasets 
 [8] methods   base     
 
 other attached packages:
- [1] vsn_3.66.0                  knitrhooks_0.0.4           
- [3] knitr_1.41                  kableExtra_1.3.4           
+ [1] vsn_3.68.0                  knitrhooks_0.0.4           
+ [3] knitr_1.44                  kableExtra_1.3.4           
  [5] eulerr_7.0.0                UpSetR_1.4.0               
- [7] ComplexHeatmap_2.14.0       DESeq2_1.38.3              
- [9] SummarizedExperiment_1.28.0 Biobase_2.58.0             
-[11] MatrixGenerics_1.10.0       matrixStats_0.63.0         
-[13] GenomicRanges_1.50.2        GenomeInfoDb_1.34.6        
-[15] IRanges_2.32.0              S4Vectors_0.36.1           
-[17] BiocGenerics_0.44.0         edgeR_3.40.2               
-[19] limma_3.54.0                forcats_0.5.2              
-[21] stringr_1.5.0               dplyr_1.0.10               
-[23] purrr_1.0.1                 readr_2.1.3                
-[25] tidyr_1.2.1                 tibble_3.1.8               
-[27] ggplot2_3.4.0               tidyverse_1.3.2            
-[29] workflowr_1.7.0            
+ [7] ComplexHeatmap_2.16.0       DESeq2_1.40.2              
+ [9] SummarizedExperiment_1.30.2 Biobase_2.60.0             
+[11] MatrixGenerics_1.12.3       matrixStats_1.0.0          
+[13] GenomicRanges_1.52.1        GenomeInfoDb_1.36.4        
+[15] IRanges_2.34.1              S4Vectors_0.38.2           
+[17] BiocGenerics_0.46.0         edgeR_3.42.4               
+[19] limma_3.56.2                lubridate_1.9.3            
+[21] forcats_1.0.0               stringr_1.5.0              
+[23] dplyr_1.1.3                 purrr_1.0.2                
+[25] readr_2.1.4                 tidyr_1.3.0                
+[27] tibble_3.2.1                ggplot2_3.4.4              
+[29] tidyverse_2.0.0             workflowr_1.7.1            
 
 loaded via a namespace (and not attached):
-  [1] readxl_1.4.1           backports_1.4.1        circlize_0.4.15       
-  [4] systemfonts_1.0.4      plyr_1.8.8             splines_4.2.2         
-  [7] BiocParallel_1.32.5    digest_0.6.31          foreach_1.5.2         
- [10] htmltools_0.5.4        magick_2.7.3           viridis_0.6.2         
- [13] fansi_1.0.3            magrittr_2.0.3         memoise_2.0.1         
- [16] googlesheets4_1.0.1    cluster_2.1.4          doParallel_1.0.17     
- [19] tzdb_0.3.0             Biostrings_2.66.0      annotate_1.76.0       
- [22] modelr_0.1.10          svglite_2.1.1          timechange_0.2.0      
- [25] colorspace_2.0-3       blob_1.2.3             rvest_1.0.3           
- [28] haven_2.5.1            xfun_0.36              hexbin_1.28.2         
- [31] callr_3.7.3            crayon_1.5.2           RCurl_1.98-1.9        
- [34] jsonlite_1.8.4         iterators_1.0.14       glue_1.6.2            
- [37] gtable_0.3.1           gargle_1.2.1           zlibbioc_1.44.0       
- [40] XVector_0.38.0         webshot_0.5.4          GetoptLong_1.0.5      
- [43] DelayedArray_0.24.0    shape_1.4.6            scales_1.2.1          
- [46] pheatmap_1.0.12        DBI_1.1.3              Rcpp_1.0.9            
- [49] viridisLite_0.4.1      xtable_1.8-4           clue_0.3-63           
- [52] bit_4.0.5              preprocessCore_1.60.2  MetBrewer_0.2.0       
- [55] httr_1.4.4             RColorBrewer_1.1-3     ellipsis_0.3.2        
- [58] pkgconfig_2.0.3        XML_3.99-0.13          farver_2.1.1          
- [61] sass_0.4.4             dbplyr_2.3.0           locfit_1.5-9.7        
- [64] utf8_1.2.2             tidyselect_1.2.0       labeling_0.4.2        
- [67] rlang_1.0.6            later_1.3.0            AnnotationDbi_1.60.0  
- [70] munsell_0.5.0          cellranger_1.1.0       tools_4.2.2           
- [73] cachem_1.0.6           cli_3.6.0              generics_0.1.3        
- [76] RSQLite_2.2.20         broom_1.0.2            evaluate_0.20         
- [79] fastmap_1.1.0          yaml_2.3.6             processx_3.8.0        
- [82] bit64_4.0.5            fs_1.5.2               KEGGREST_1.38.0       
- [85] nlme_3.1-161           whisker_0.4.1          xml2_1.3.3            
- [88] compiler_4.2.2         rstudioapi_0.14        png_0.1-8             
- [91] affyio_1.68.0          reprex_2.0.2           geneplotter_1.76.0    
- [94] bslib_0.4.2            stringi_1.7.12         highr_0.10            
- [97] ps_1.7.2.9000          lattice_0.20-45        Matrix_1.5-3          
-[100] vctrs_0.5.1            pillar_1.8.1           lifecycle_1.0.3       
-[103] BiocManager_1.30.19    jquerylib_0.1.4        GlobalOptions_0.1.2   
-[106] bitops_1.0-7           httpuv_1.6.8           affy_1.76.0           
-[109] R6_2.5.1               promises_1.2.0.1       gridExtra_2.3         
-[112] codetools_0.2-18       assertthat_0.2.1       rprojroot_2.0.3       
-[115] rjson_0.2.21           withr_2.5.0            GenomeInfoDbData_1.2.9
-[118] mgcv_1.8-41            parallel_4.2.2         hms_1.1.2             
-[121] rmarkdown_2.20         googledrive_2.0.0      git2r_0.30.1          
-[124] getPass_0.2-2          lubridate_1.9.0       
+  [1] RColorBrewer_1.1-3      rstudioapi_0.15.0       jsonlite_1.8.7         
+  [4] shape_1.4.6             magrittr_2.0.3          magick_2.8.1           
+  [7] farver_2.1.1            rmarkdown_2.25          GlobalOptions_0.1.2    
+ [10] fs_1.6.3                zlibbioc_1.46.0         vctrs_0.6.4            
+ [13] MetBrewer_0.2.0         RCurl_1.98-1.12         webshot_0.5.5          
+ [16] htmltools_0.5.6.1       S4Arrays_1.0.6          cellranger_1.1.0       
+ [19] sass_0.4.7              bslib_0.5.1             plyr_1.8.9             
+ [22] cachem_1.0.8            whisker_0.4.1           lifecycle_1.0.3        
+ [25] iterators_1.0.14        pkgconfig_2.0.3         Matrix_1.6-1.1         
+ [28] R6_2.5.1                fastmap_1.1.1           GenomeInfoDbData_1.2.10
+ [31] clue_0.3-65             digest_0.6.33           colorspace_2.1-0       
+ [34] ps_1.7.5                rprojroot_2.0.3         labeling_0.4.3         
+ [37] fansi_1.0.5             timechange_0.2.0        httr_1.4.7             
+ [40] abind_1.4-5             mgcv_1.9-0              compiler_4.3.1         
+ [43] withr_2.5.1             doParallel_1.0.17       BiocParallel_1.34.2    
+ [46] viridis_0.6.4           hexbin_1.28.3           DelayedArray_0.26.7    
+ [49] rjson_0.2.21            tools_4.3.1             httpuv_1.6.12          
+ [52] glue_1.6.2              callr_3.7.3             nlme_3.1-163           
+ [55] promises_1.2.1          getPass_0.2-2           cluster_2.1.4          
+ [58] generics_0.1.3          gtable_0.3.4            tzdb_0.4.0             
+ [61] preprocessCore_1.62.1   hms_1.1.3               xml2_1.3.5             
+ [64] utf8_1.2.4              XVector_0.40.0          foreach_1.5.2          
+ [67] pillar_1.9.0            later_1.3.1             circlize_0.4.15        
+ [70] splines_4.3.1           lattice_0.21-9          tidyselect_1.2.0       
+ [73] locfit_1.5-9.8          git2r_0.32.0            gridExtra_2.3          
+ [76] svglite_2.1.2           xfun_0.40               pheatmap_1.0.12        
+ [79] stringi_1.7.12          yaml_2.3.7              evaluate_0.22          
+ [82] codetools_0.2-19        BiocManager_1.30.22     cli_3.6.1              
+ [85] affyio_1.70.0           systemfonts_1.0.5       munsell_0.5.0          
+ [88] processx_3.8.2          jquerylib_0.1.4         readxl_1.4.3           
+ [91] Rcpp_1.0.11             png_0.1-8               parallel_4.3.1         
+ [94] bitops_1.0-7            viridisLite_0.4.2       scales_1.2.1           
+ [97] affy_1.78.2             crayon_1.5.2            GetoptLong_1.0.5       
+[100] rlang_1.1.1             rvest_1.0.3            
 </pre>
+</div>
 </div>
 </div>
 
